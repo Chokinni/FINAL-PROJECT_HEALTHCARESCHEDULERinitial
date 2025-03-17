@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FINAL_PROJECT_HEALTHCARESCHEDULER
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void showpasslogin_CheckedChanged(object sender, EventArgs e)
+        {
+            tbx_password.PasswordChar = showpasslogin.Checked ? '\0' : '*';
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RegistrationForm form3 = new RegistrationForm();
+            form3.Show();
+            this.Hide();
+        }
+
+        private void btn_signin_Click(object sender, EventArgs e)
+        {
+            string username = tbx_username.Text.Trim();
+            string password = tbx_password.Text.Trim();
+            
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter both username and password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            {
+                try
+                {
+                    con.Open();
+                    string query = "SELECT FirstName, Role FROM Users WHERE Username=@Username AND Password=@Password";
+                    OleDbCommand cmd = new OleDbCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read()) // If user is found
+                    {
+                        string role = reader["Role"].ToString();
+                        string firstName = reader["FirstName"].ToString();
+
+
+                        if (role == "DOCTOR")
+                        {
+                            MessageBox.Show("Login successful! WELCOME DOCTOR!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FormDoctorMenu doctorDashboard = new FormDoctorMenu(firstName);
+                            doctorDashboard.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Login successful! WELCOME PATIENT!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FormPatientMenu patientDashboard = new FormPatientMenu(firstName);
+                            patientDashboard.Show();
+                        }
+                        this.Hide(); // Hide login form
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+    }
+}
