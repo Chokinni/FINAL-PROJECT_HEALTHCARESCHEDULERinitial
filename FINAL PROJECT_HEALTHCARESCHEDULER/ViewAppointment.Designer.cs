@@ -63,6 +63,7 @@
             btn_loadAppointments.TabIndex = 19;
             btn_loadAppointments.Text = "LOAD SCHEDULE";
             btn_loadAppointments.UseVisualStyleBackColor = false;
+            btn_loadAppointments.Click += btn_loadAppointments_Click;
             // 
             // ViewAppointment
             // 

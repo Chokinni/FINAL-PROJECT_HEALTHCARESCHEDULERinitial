@@ -64,6 +64,7 @@
             btn_loadschedforpatients.TabIndex = 26;
             btn_loadschedforpatients.Text = "LOAD SCHEDULE";
             btn_loadschedforpatients.UseVisualStyleBackColor = false;
+            btn_loadschedforpatients.Click += btn_loadschedforpatients_Click;
             // 
             // ViewDoctorAppointment
             // 

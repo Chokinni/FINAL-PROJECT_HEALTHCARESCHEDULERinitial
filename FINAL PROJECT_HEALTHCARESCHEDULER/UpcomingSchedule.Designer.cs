@@ -76,6 +76,7 @@
             btn_loadUpcoming.TabIndex = 19;
             btn_loadUpcoming.Text = "LOAD SCHEDULE";
             btn_loadUpcoming.UseVisualStyleBackColor = false;
+            btn_loadUpcoming.Click += btn_loadUpcoming_Click;
             // 
             // UpcomingSchedule
             // 

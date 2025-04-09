@@ -52,7 +52,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 try
                 {
                     con.Open();
-                    string query = "SELECT FirstName, Role FROM Users WHERE Username=@Username AND Password=@Password";
+                    string query = "SELECT FirstName, LastName, Role FROM Users WHERE Username=@Username AND Password=@Password";
                     OleDbCommand cmd = new OleDbCommand(query, con);
                     cmd.Parameters.AddWithValue("@Username", username);
                     cmd.Parameters.AddWithValue("@Password", password);
@@ -62,18 +62,20 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     {
                         string role = reader["Role"].ToString();
                         string firstName = reader["FirstName"].ToString();
+                        string lastName = reader["LastName"].ToString();
+                        string fullName = firstName + " " + lastName;
 
 
                         if (role == "DOCTOR")
                         {
                             MessageBox.Show("Login successful! WELCOME DOCTOR!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            FormDoctorMenu doctorDashboard = new FormDoctorMenu(firstName);
+                            FormDoctorMenu doctorDashboard = new FormDoctorMenu(firstName,lastName);
                             doctorDashboard.Show();
                         }
                         else
                         {
                             MessageBox.Show("Login successful! WELCOME PATIENT!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            FormPatientMenu patientDashboard = new FormPatientMenu(firstName);
+                            FormPatientMenu patientDashboard = new FormPatientMenu(firstName,lastName);
                             patientDashboard.Show();
                         }
                         this.Hide(); // Hide login form

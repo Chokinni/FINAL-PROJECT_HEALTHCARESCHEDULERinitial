@@ -168,6 +168,7 @@
             lblWelcome.Size = new Size(179, 20);
             lblWelcome.TabIndex = 1;
             lblWelcome.Text = "WELCOME, PATIENT!";
+            lblWelcome.Click += lblWelcome_Click;
             // 
             // pictureBox1
             // 

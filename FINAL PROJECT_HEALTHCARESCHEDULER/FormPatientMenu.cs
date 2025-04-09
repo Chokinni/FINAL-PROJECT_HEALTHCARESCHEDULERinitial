@@ -14,10 +14,13 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
     public partial class FormPatientMenu : Form
     {
         string loggedInUsername;
-        public FormPatientMenu(string firstName)
+        private string loggedInLastName;
+        private UpcomingSchedule activeUpcomingSchedule;
+        public FormPatientMenu(string firstName, string lastName)
         {
             InitializeComponent();
-            loggedInUsername = firstName; // Store username in a variable
+            loggedInUsername = firstName;// Store username in a variable
+            loggedInLastName = lastName;
 
             lblWelcome.Text = "Welcome, Patient " + loggedInUsername; // Example usage
         }
@@ -30,7 +33,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_schedule_Click(object sender, EventArgs e)
         {
             panelContainer.Controls.Clear();
-            ScheduleApointment schedule = new ScheduleApointment();
+            ScheduleApointment schedule = new ScheduleApointment(loggedInUsername, loggedInLastName);
             schedule.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(schedule);
 
@@ -39,7 +42,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_update_Click(object sender, EventArgs e)
         {
             panelContainer.Controls.Clear();
-            UpdateAppointment updschedule = new UpdateAppointment();
+            UpdateAppointment updschedule = new UpdateAppointment(loggedInUsername,loggedInLastName);
             updschedule.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(updschedule);
         }
@@ -47,7 +50,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_cancel_Click(object sender, EventArgs e)
         {
             panelContainer.Controls.Clear();
-            CancelAppointment cancelschedule = new CancelAppointment();
+            CancelAppointment cancelschedule = new CancelAppointment(loggedInUsername, loggedInLastName);
             cancelschedule.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(cancelschedule);
         }
@@ -55,7 +58,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_upschedpatient_Click(object sender, EventArgs e)
         {
             panelContainer.Controls.Clear();
-            UpcomingSchedule upcschedule = new UpcomingSchedule();
+            UpcomingSchedule upcschedule = new UpcomingSchedule(loggedInUsername, loggedInLastName);
             upcschedule.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(upcschedule);
         }
@@ -63,7 +66,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_appointments_Click(object sender, EventArgs e)
         {
             panelContainer.Controls.Clear();
-            ViewAppointment viewschedule = new ViewAppointment();
+            ViewAppointment viewschedule = new ViewAppointment(loggedInUsername, loggedInLastName);
             viewschedule.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(viewschedule);
         }
@@ -78,9 +81,28 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_logoutpatient_Click(object sender, EventArgs e)
         {
+            if (panelContainer.Controls.OfType<UpcomingSchedule>().FirstOrDefault() is UpcomingSchedule upcomingSchedule)
+            {
+                upcomingSchedule.StopAlertSound();
+                upcomingSchedule.Dispose();  // Force cleanup
+            }
+
+
+
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
+        }
+        private void FormPatientMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop sound if window closes
+            activeUpcomingSchedule?.StopAlertSound();
+            activeUpcomingSchedule?.Dispose();
+        }
+
+        private void lblWelcome_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

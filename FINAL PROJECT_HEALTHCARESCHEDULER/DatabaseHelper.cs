@@ -9,7 +9,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
     internal class DatabaseHelper
     {
-        private static string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Lenovo - i5 13th Gen\Documents\SCHEDULER.accdb;";
+        private static string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Lenovo - i5 13th Gen\Documents\Healthcarescheduler.accdb;";
 
         public static OleDbConnection GetConnection()
         {

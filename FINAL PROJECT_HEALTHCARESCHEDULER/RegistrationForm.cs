@@ -42,7 +42,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             }
 
             string role = cmbRole.SelectedItem.ToString();
-             string firstName = tbx_firstname.Text.Trim();
+            string firstName = tbx_firstname.Text.Trim();
             string lastName = tbx_lastname.Text.Trim();
             string username = tbx_regusername.Text.Trim().ToUpper();
             string password = tbx_regpassword.Text.Trim();
@@ -82,7 +82,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 {
                     con.Open();
                     string query = "INSERT INTO Users (Firstname, Lastname, Username, [Password], Role, Specialty) " +
-                "VALUES (@Firstname, @Lastname, @Username, @Password, @Role, @Specialty)";
+                                   "VALUES (@Firstname, @Lastname, @Username, @Password, @Role, @Specialty)";
                     OleDbCommand cmd = new OleDbCommand(query, con);
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
@@ -94,7 +94,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
+                    con.Close();
 
                 }
                 catch (Exception ex)

@@ -76,6 +76,7 @@
             btn_loadschedupcoming.TabIndex = 22;
             btn_loadschedupcoming.Text = "LOAD SCHEDULE";
             btn_loadschedupcoming.UseVisualStyleBackColor = false;
+            btn_loadschedupcoming.Click += btn_loadschedupcoming_Click;
             // 
             // ViewDoctorUpcomingSchedule
             // 

@@ -120,6 +120,7 @@
             btn_loadschedmeet.TabIndex = 28;
             btn_loadschedmeet.Text = "LOAD SCHEDULE";
             btn_loadschedmeet.UseVisualStyleBackColor = false;
+            btn_loadschedmeet.Click += btn_loadschedmeet_Click;
             // 
             // datetime_meetapp
             // 

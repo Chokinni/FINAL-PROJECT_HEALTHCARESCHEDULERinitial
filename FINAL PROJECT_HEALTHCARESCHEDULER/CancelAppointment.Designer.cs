@@ -28,60 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tbx_doctorupdate = new TextBox();
             btn_cancel = new Button();
-            datetime_sched = new DateTimePicker();
-            lbl_datetime = new Label();
-            lbl_docname = new Label();
             table_CancelAppointment = new DataGridView();
             btn_LoadAppCancel = new Button();
+            btn_deleteapp = new Button();
             ((System.ComponentModel.ISupportInitialize)table_CancelAppointment).BeginInit();
             SuspendLayout();
-            // 
-            // tbx_doctorupdate
-            // 
-            tbx_doctorupdate.Location = new Point(170, 469);
-            tbx_doctorupdate.Name = "tbx_doctorupdate";
-            tbx_doctorupdate.Size = new Size(125, 27);
-            tbx_doctorupdate.TabIndex = 18;
             // 
             // btn_cancel
             // 
             btn_cancel.BackColor = Color.LimeGreen;
             btn_cancel.FlatAppearance.BorderSize = 0;
             btn_cancel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_cancel.Location = new Point(186, 537);
+            btn_cancel.Location = new Point(78, 498);
             btn_cancel.Name = "btn_cancel";
             btn_cancel.Size = new Size(173, 29);
             btn_cancel.TabIndex = 17;
             btn_cancel.Text = "CANCEL";
             btn_cancel.UseVisualStyleBackColor = false;
             btn_cancel.Click += btn_cancel_Click;
-            // 
-            // datetime_sched
-            // 
-            datetime_sched.Location = new Point(513, 469);
-            datetime_sched.Name = "datetime_sched";
-            datetime_sched.Size = new Size(240, 27);
-            datetime_sched.TabIndex = 16;
-            // 
-            // lbl_datetime
-            // 
-            lbl_datetime.AutoSize = true;
-            lbl_datetime.Location = new Point(400, 474);
-            lbl_datetime.Name = "lbl_datetime";
-            lbl_datetime.Size = new Size(107, 20);
-            lbl_datetime.TabIndex = 15;
-            lbl_datetime.Text = "Date and Time";
-            // 
-            // lbl_docname
-            // 
-            lbl_docname.AutoSize = true;
-            lbl_docname.Location = new Point(100, 469);
-            lbl_docname.Name = "lbl_docname";
-            lbl_docname.Size = new Size(55, 20);
-            lbl_docname.TabIndex = 14;
-            lbl_docname.Text = "Doctor";
             // 
             // table_CancelAppointment
             // 
@@ -97,40 +62,47 @@
             btn_LoadAppCancel.BackColor = Color.LimeGreen;
             btn_LoadAppCancel.FlatAppearance.BorderSize = 0;
             btn_LoadAppCancel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_LoadAppCancel.Location = new Point(403, 537);
+            btn_LoadAppCancel.Location = new Point(295, 498);
             btn_LoadAppCancel.Name = "btn_LoadAppCancel";
             btn_LoadAppCancel.Size = new Size(235, 29);
             btn_LoadAppCancel.TabIndex = 19;
             btn_LoadAppCancel.Text = "Load Schedule";
             btn_LoadAppCancel.UseVisualStyleBackColor = false;
+            btn_LoadAppCancel.Click += btn_LoadAppCancel_Click;
+            // 
+            // btn_deleteapp
+            // 
+            btn_deleteapp.BackColor = Color.LimeGreen;
+            btn_deleteapp.FlatAppearance.BorderSize = 0;
+            btn_deleteapp.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_deleteapp.Location = new Point(552, 498);
+            btn_deleteapp.Name = "btn_deleteapp";
+            btn_deleteapp.Size = new Size(235, 29);
+            btn_deleteapp.TabIndex = 20;
+            btn_deleteapp.Text = "DELETE";
+            btn_deleteapp.UseVisualStyleBackColor = false;
+            btn_deleteapp.Click += btn_deleteapp_Click;
             // 
             // CancelAppointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MistyRose;
+            Controls.Add(btn_deleteapp);
             Controls.Add(btn_LoadAppCancel);
-            Controls.Add(tbx_doctorupdate);
             Controls.Add(btn_cancel);
-            Controls.Add(datetime_sched);
-            Controls.Add(lbl_datetime);
-            Controls.Add(lbl_docname);
             Controls.Add(table_CancelAppointment);
             Name = "CancelAppointment";
             Size = new Size(1105, 676);
+            Load += CancelAppointment_Load;
             ((System.ComponentModel.ISupportInitialize)table_CancelAppointment).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private TextBox tbx_doctorupdate;
         private Button btn_cancel;
-        private DateTimePicker datetime_sched;
-        private Label lbl_datetime;
-        private Label lbl_docname;
         private DataGridView table_CancelAppointment;
         private Button btn_LoadAppCancel;
+        private Button btn_deleteapp;
     }
 }
