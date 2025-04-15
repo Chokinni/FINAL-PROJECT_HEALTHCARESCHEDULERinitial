@@ -11,10 +11,9 @@ using System.Windows.Forms;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class CancelPatientAppointment : UserControl
+    public partial class CancelPatientAppointment : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+        
         public CancelPatientAppointment(string firstName, string lastName)
         {
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_loadschedforcancel_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = GetConnection())
             {
                 try
                 {
@@ -55,7 +54,31 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
                             // Step 3: Bind the DataTable to your table control (e.g., DataGridView)
                             table_CancelpatientAppointment.DataSource = dt;
+                            
+                            var dgv = table_CancelpatientAppointment;
 
+                            dgv.EnableHeadersVisualStyles = false;
+                            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SkyBlue;
+                            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                            dgv.ColumnHeadersHeight = 35;
+
+                            dgv.DefaultCellStyle.BackColor = Color.White;
+                            dgv.DefaultCellStyle.ForeColor = Color.Black;
+                            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                            dgv.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+                            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+
+                            dgv.RowTemplate.Height = 30;
+                            dgv.GridColor = Color.LightGray;
+
+                            dgv.BorderStyle = BorderStyle.Fixed3D;
+                            dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                            dgv.AutoResizeColumns();
                             // Optional: Display a success message
                             if (dt.Rows.Count > 0)
                             {
@@ -102,7 +125,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             }
 
             // Step 5: Update the status to "Cancelled" in the database
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {
@@ -177,7 +200,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             }
 
             // Step 4: Use DatabaseHelper to get a connection
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {

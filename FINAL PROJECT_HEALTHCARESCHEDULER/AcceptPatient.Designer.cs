@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btn_confirm = new Button();
             table_AcceptAppointment = new DataGridView();
             btn_loadscheddoc = new Button();
+            Patient_profilestrip = new ContextMenuStrip(components);
+            viewPatientProfileToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)table_AcceptAppointment).BeginInit();
+            Patient_profilestrip.SuspendLayout();
             SuspendLayout();
             // 
             // btn_confirm
@@ -69,16 +73,32 @@
             btn_loadscheddoc.UseVisualStyleBackColor = false;
             btn_loadscheddoc.Click += btn_loadscheddoc_Click;
             // 
+            // Patient_profilestrip
+            // 
+            Patient_profilestrip.ImageScalingSize = new Size(20, 20);
+            Patient_profilestrip.Items.AddRange(new ToolStripItem[] { viewPatientProfileToolStripMenuItem });
+            Patient_profilestrip.Name = "Patient_profilestrip";
+            Patient_profilestrip.Size = new Size(211, 56);
+            Patient_profilestrip.Opening += Patient_profilestrip_Opening;
+            // 
+            // viewPatientProfileToolStripMenuItem
+            // 
+            viewPatientProfileToolStripMenuItem.Name = "viewPatientProfileToolStripMenuItem";
+            viewPatientProfileToolStripMenuItem.Size = new Size(206, 24);
+            viewPatientProfileToolStripMenuItem.Text = "View Patient Profile";
+            // 
             // AcceptPatient
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ContextMenuStrip = Patient_profilestrip;
             Controls.Add(btn_loadscheddoc);
             Controls.Add(btn_confirm);
             Controls.Add(table_AcceptAppointment);
             Name = "AcceptPatient";
             Size = new Size(1105, 676);
             ((System.ComponentModel.ISupportInitialize)table_AcceptAppointment).EndInit();
+            Patient_profilestrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -87,5 +107,7 @@
         private Button btn_confirm;
         private DataGridView table_AcceptAppointment;
         private Button btn_loadscheddoc;
+        private ContextMenuStrip Patient_profilestrip;
+        private ToolStripMenuItem viewPatientProfileToolStripMenuItem;
     }
 }

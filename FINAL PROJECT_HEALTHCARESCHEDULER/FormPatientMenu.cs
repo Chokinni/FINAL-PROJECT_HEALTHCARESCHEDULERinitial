@@ -20,9 +20,25 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         {
             InitializeComponent();
             loggedInUsername = firstName;// Store username in a variable
-            loggedInLastName = lastName;
+            loggedInLastName = lastName;// Store username in a variable
+            lblWelcome.Text = "Welcome, Patient " + loggedInUsername;
+            lblWelcome.AutoSize = false;
+            lblWelcome.MaximumSize = new Size(300, 0); // limit width, height can grow
+            lblWelcome.AutoEllipsis = false;
+            lblWelcome.UseCompatibleTextRendering = true; // Fix for rendering inconsistencies
 
-            lblWelcome.Text = "Welcome, Patient " + loggedInUsername; // Example usage
+            // Measure and resize label height properly
+            Size textSize = TextRenderer.MeasureText(
+                lblWelcome.Text,
+                lblWelcome.Font,
+                new Size(lblWelcome.MaximumSize.Width, 0),
+                TextFormatFlags.WordBreak
+            );
+
+            lblWelcome.Size = new Size(lblWelcome.MaximumSize.Width, textSize.Height);
+
+            lblWelcome.AutoEllipsis = false; // Optional
+            lblWelcome.UseCompatibleTextRendering = false; // Optional but sometimes helps with text measuring where to put this
         }
 
         private void label2_Click(object sender, EventArgs e)

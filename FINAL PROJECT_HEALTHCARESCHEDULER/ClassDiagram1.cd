@@ -1,2 +1,142 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Properties.Resources" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAIAAACAAAAAAAABEAAAAQAAAAAAACAAAAAAAIQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.AcceptPatient" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAACSCAAAAAACAAAACAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>AcceptPatient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.BaseClass" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAgAAAACAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>BaseClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.CancelAppointment" Collapsed="true">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAQBEAACAAAAAAACSAAAACCAAAAIAAAAQAAAAAAIA=</HashCode>
+      <FileName>CancelAppointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Cancellation" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cancellation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.CancelPatientAppointment" Collapsed="true">
+    <Position X="1.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAIAAQAKAAAAAEAACEAAACAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CancelPatientAppointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.DoctorMeeting" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQAgAAACABAAAgBACiAAACAAAAIAABAAAABAAAAAA=</HashCode>
+      <FileName>DoctorMeeting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Form1" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAgAACAAAAIAAAAAAAAQBAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.FormDoctorMenu" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAZAIUAkCEEABAAAAGAAAAGAAAAAAAAAAAIAQBCAAA=</HashCode>
+      <FileName>FormDoctorMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.FormPatientMenu" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIIQAI0DAGAABJQAUAGQAAACAAIABAAAIAAAAQBAAAA=</HashCode>
+      <FileName>FormPatientMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Form2" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBYAYUAACAEABAAAACAAAACAAAAIAAAEGAoAQAEAAE=</HashCode>
+      <FileName>LOGINFORM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.OnlineMeeting" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAACAAAAAEAACAAAECAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>OnlineMeeting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Program" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.RegistrationForm" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIS4QAwgQSFESJkBjGDAADASQCAAAIEAAAIIAZAEyAA=</HashCode>
+      <FileName>RegistrationForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ScheduleApointment" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBQAAAFgACQCCCAAgACEEAACAAgEAAAAAAAAAAABgAA=</HashCode>
+      <FileName>ScheduleApointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.UpcomingSchedule" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAgACAAAAAAAAKAAAwCAAAAAAAEAAQAAAAIAAE=</HashCode>
+      <FileName>UpcomingSchedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.UpdateAppointment" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACAAAAQABASCAAACCAAAIAAAAAAAAIAEAAA=</HashCode>
+      <FileName>UpdateAppointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ViewAppointment" Collapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAACAAAAAQAACAAIACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewAppointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ViewDoctorAppointment" Collapsed="true">
+    <Position X="15.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAACAAAAAAAACAAAASBAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewDoctorAppointment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ViewDoctorUpcomingSchedule" Collapsed="true">
+    <Position X="19.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAICKAAAgCABAAAAAEAAAAgAAAAAE=</HashCode>
+      <FileName>ViewDoctorUpcomingSchedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

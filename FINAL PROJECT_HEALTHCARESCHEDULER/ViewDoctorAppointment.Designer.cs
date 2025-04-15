@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lbl_Appointment = new Label();
             table_ViewDoctorAppointment = new DataGridView();
             btn_loadschedforpatients = new Button();
+            strip_viewappointment = new ContextMenuStrip(components);
+            viewPatientProfileToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)table_ViewDoctorAppointment).BeginInit();
+            strip_viewappointment.SuspendLayout();
             SuspendLayout();
             // 
             // lbl_Appointment
@@ -66,10 +70,25 @@
             btn_loadschedforpatients.UseVisualStyleBackColor = false;
             btn_loadschedforpatients.Click += btn_loadschedforpatients_Click;
             // 
+            // strip_viewappointment
+            // 
+            strip_viewappointment.ImageScalingSize = new Size(20, 20);
+            strip_viewappointment.Items.AddRange(new ToolStripItem[] { viewPatientProfileToolStripMenuItem });
+            strip_viewappointment.Name = "strip_viewappointment";
+            strip_viewappointment.Size = new Size(211, 56);
+            strip_viewappointment.Opening += strip_viewappointment_Opening;
+            // 
+            // viewPatientProfileToolStripMenuItem
+            // 
+            viewPatientProfileToolStripMenuItem.Name = "viewPatientProfileToolStripMenuItem";
+            viewPatientProfileToolStripMenuItem.Size = new Size(210, 24);
+            viewPatientProfileToolStripMenuItem.Text = "View Patient Profile";
+            // 
             // ViewDoctorAppointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ContextMenuStrip = strip_viewappointment;
             Controls.Add(btn_loadschedforpatients);
             Controls.Add(lbl_Appointment);
             Controls.Add(table_ViewDoctorAppointment);
@@ -77,6 +96,7 @@
             Size = new Size(1105, 676);
             Load += ViewDoctorAppointment_Load;
             ((System.ComponentModel.ISupportInitialize)table_ViewDoctorAppointment).EndInit();
+            strip_viewappointment.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -86,5 +106,7 @@
         private Label lbl_Appointment;
         private DataGridView table_ViewDoctorAppointment;
         private Button btn_loadschedforpatients;
+        private ContextMenuStrip strip_viewappointment;
+        private ToolStripMenuItem viewPatientProfileToolStripMenuItem;
     }
 }

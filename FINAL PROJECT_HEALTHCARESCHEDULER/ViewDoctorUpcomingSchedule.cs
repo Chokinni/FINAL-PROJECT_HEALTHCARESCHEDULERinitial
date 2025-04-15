@@ -12,10 +12,9 @@ using NAudio.Wave;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class ViewDoctorUpcomingSchedule : UserControl
+    public partial class ViewDoctorUpcomingSchedule : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+        
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private readonly string soundFilePath = @"C:\Users\Lenovo - i5 13th Gen\Downloads\iphone.mp3";
@@ -30,7 +29,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         {
             try
             {
-                using (OleDbConnection con = DatabaseHelper.GetConnection())
+                using (OleDbConnection con = GetConnection())
                 {
                     con.Open();
 
@@ -61,6 +60,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         adapter.Fill(dt);
 
                         table_DoctorUpcomingSched.DataSource = dt;
+                        StyleDataGridView();
 
                         if (dt.Rows.Count > 0)
                         {
@@ -72,6 +72,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             table_DoctorUpcomingSched.Columns["Patient"].HeaderText = "Patient";
                             table_DoctorUpcomingSched.Columns["AppointmentDate"].HeaderText = "Appointment Time";
                             table_DoctorUpcomingSched.Columns["Status"].HeaderText = "Status";
+
+
 
                             // Auto-size columns
                             table_DoctorUpcomingSched.AutoResizeColumns();
@@ -101,7 +103,32 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                               MessageBoxIcon.Error);
             }
         }
+        private void StyleDataGridView()
+        {
+            var dgv = table_DoctorUpcomingSched;
 
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SkyBlue;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgv.ColumnHeadersHeight = 35;
+
+            dgv.DefaultCellStyle.BackColor = Color.White;
+            dgv.DefaultCellStyle.ForeColor = Color.Black;
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+
+            dgv.RowTemplate.Height = 30;
+            dgv.GridColor = Color.LightGray;
+
+            dgv.BorderStyle = BorderStyle.Fixed3D;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
 
         private void PlayAlertSound()
         {

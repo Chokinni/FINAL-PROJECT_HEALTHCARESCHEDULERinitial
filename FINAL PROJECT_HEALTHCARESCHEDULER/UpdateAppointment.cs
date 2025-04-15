@@ -11,10 +11,9 @@ using System.Windows.Forms;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class UpdateAppointment : UserControl
+    public partial class UpdateAppointment : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+       
         public UpdateAppointment(string firstName, string lastName)
         {
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_LoadSchedule_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = GetConnection())
             {
                 try
                 {
@@ -113,7 +112,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             string newStatus = currentStatus == "Accepted" ? "Pending" : currentStatus;
 
             // Step 6: Update the appointment in the database
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {

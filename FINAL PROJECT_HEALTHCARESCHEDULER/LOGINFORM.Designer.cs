@@ -235,6 +235,7 @@
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LOGIN";
+            Load += Form2_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picture_patient).EndInit();

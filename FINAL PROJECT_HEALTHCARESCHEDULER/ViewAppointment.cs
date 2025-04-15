@@ -11,10 +11,9 @@ using System.Windows.Forms;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class ViewAppointment : UserControl
+    public partial class ViewAppointment : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+        
         public ViewAppointment(string firstName, string lastName)
         {
             InitializeComponent();
@@ -24,7 +23,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_loadAppointments_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = GetConnection())
             {
                 try
                 {

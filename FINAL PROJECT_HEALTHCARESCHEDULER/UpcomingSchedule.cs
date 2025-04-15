@@ -12,11 +12,10 @@ using NAudio.Wave;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class UpcomingSchedule : UserControl
+    public partial class UpcomingSchedule : BaseClass
 
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+        
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private readonly string soundFilePath = @"C:\Users\Lenovo - i5 13th Gen\Downloads\iphone.mp3";
@@ -31,7 +30,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         {
             try
             {
-                using (OleDbConnection con = DatabaseHelper.GetConnection())
+                using (OleDbConnection con = GetConnection())
                 {
                     con.Open();
 

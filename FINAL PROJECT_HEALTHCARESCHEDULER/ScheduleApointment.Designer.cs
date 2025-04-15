@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lbl_specialization = new Label();
             cbx_specialization = new ComboBox();
             lbl_doctors = new Label();
@@ -37,6 +38,9 @@
             btn_confirm = new Button();
             RBTN_facetoface = new RadioButton();
             RBTN_Online = new RadioButton();
+            strip_doctorprofile = new ContextMenuStrip(components);
+            viewDoctorProfileToolStripMenuItem = new ToolStripMenuItem();
+            strip_doctorprofile.SuspendLayout();
             SuspendLayout();
             // 
             // lbl_specialization
@@ -71,6 +75,7 @@
             // 
             // cbx_doctor
             // 
+            cbx_doctor.ContextMenuStrip = strip_doctorprofile;
             cbx_doctor.FormattingEnabled = true;
             cbx_doctor.Items.AddRange(new object[] { "CARDIOLOGY", "PEDIATRICS", "GYNECOLOGIST", "NEUROLOGY", "DERMATOLOGY", "NEPHROLOGY", "OHTHALMOLOGY", "ORTHOPEDICS" });
             cbx_doctor.Location = new Point(396, 312);
@@ -133,10 +138,25 @@
             RBTN_Online.Text = "Online";
             RBTN_Online.UseVisualStyleBackColor = true;
             // 
+            // strip_doctorprofile
+            // 
+            strip_doctorprofile.ImageScalingSize = new Size(20, 20);
+            strip_doctorprofile.Items.AddRange(new ToolStripItem[] { viewDoctorProfileToolStripMenuItem });
+            strip_doctorprofile.Name = "contextMenuStrip1";
+            strip_doctorprofile.Size = new Size(209, 28);
+            strip_doctorprofile.Opening += strip_doctorprofile_Opening;
+            // 
+            // viewDoctorProfileToolStripMenuItem
+            // 
+            viewDoctorProfileToolStripMenuItem.Name = "viewDoctorProfileToolStripMenuItem";
+            viewDoctorProfileToolStripMenuItem.Size = new Size(208, 24);
+            viewDoctorProfileToolStripMenuItem.Text = "View Doctor profile";
+            // 
             // ScheduleApointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ContextMenuStrip = strip_doctorprofile;
             Controls.Add(RBTN_Online);
             Controls.Add(RBTN_facetoface);
             Controls.Add(btn_confirm);
@@ -148,6 +168,8 @@
             Controls.Add(lbl_specialization);
             Name = "ScheduleApointment";
             Size = new Size(1105, 676);
+            Load += ScheduleApointment_Load;
+            strip_doctorprofile.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -163,5 +185,7 @@
         private Button btn_confirm;
         private RadioButton RBTN_facetoface;
         private RadioButton RBTN_Online;
+        private ContextMenuStrip strip_doctorprofile;
+        private ToolStripMenuItem viewDoctorProfileToolStripMenuItem;
     }
 }

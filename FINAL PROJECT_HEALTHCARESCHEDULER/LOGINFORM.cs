@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
@@ -39,15 +40,19 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         {
             string username = tbx_username.Text.Trim();
             string password = tbx_password.Text.Trim();
-            
+
+
+
+
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Please enter both username and password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            string hashedPassword = HashPassword(password);
 
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {
@@ -55,7 +60,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     string query = "SELECT FirstName, LastName, Role FROM Users WHERE Username=@Username AND Password=@Password";
                     OleDbCommand cmd = new OleDbCommand(query, con);
                     cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@Password", password);
+                    cmd.Parameters.AddWithValue("@Password", hashedPassword);
 
                     OleDbDataReader reader = cmd.ExecuteReader();
                     if (reader.Read()) // If user is found
@@ -69,13 +74,13 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         if (role == "DOCTOR")
                         {
                             MessageBox.Show("Login successful! WELCOME DOCTOR!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            FormDoctorMenu doctorDashboard = new FormDoctorMenu(firstName,lastName);
+                            FormDoctorMenu doctorDashboard = new FormDoctorMenu(firstName, lastName);
                             doctorDashboard.Show();
                         }
                         else
                         {
                             MessageBox.Show("Login successful! WELCOME PATIENT!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            FormPatientMenu patientDashboard = new FormPatientMenu(firstName,lastName);
+                            FormPatientMenu patientDashboard = new FormPatientMenu(firstName, lastName);
                             patientDashboard.Show();
                         }
                         this.Hide(); // Hide login form
@@ -90,6 +95,21 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

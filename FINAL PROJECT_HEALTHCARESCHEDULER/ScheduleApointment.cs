@@ -11,14 +11,13 @@ using System.Windows.Forms;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class ScheduleApointment : UserControl
+    public partial class ScheduleApointment : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+
         public ScheduleApointment(string firstName, string lastName)
         {
             InitializeComponent();
-           loggedInFirstName = firstName;
+            loggedInFirstName = firstName;
             loggedInLastName = lastName;
             // Debugging: Check if the logged-in user's name is being passed correctly
             MessageBox.Show("Logged in as: " + loggedInFirstName + " " + loggedInLastName);
@@ -41,7 +40,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void cbx_specialization_SelectedIndexChanged(object sender, EventArgs e)
         {
-            using (OleDbConnection conn = DatabaseHelper.GetConnection())
+            using (OleDbConnection conn = GetConnection())
             {
                 conn.Open();
                 string query = "SELECT FirstName + ' ' + LastName FROM USERS WHERE Role='DOCTOR' AND Specialty=@Specialization";
@@ -62,10 +61,10 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             }
         }
 
-       
+
         private void btn_confirm_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {
@@ -103,7 +102,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             checkCmd.Parameters.AddWithValue("@Doctor", cbx_doctor.Text);
                             checkCmd.Parameters.AddWithValue("@StartWindow", startWindow.ToString("yyyy-MM-dd HH:mm:ss"));
                             checkCmd.Parameters.AddWithValue("@EndWindow", endWindow.ToString("yyyy-MM-dd HH:mm:ss"));
-                            
+
                             int existingAppointments = Convert.ToInt32(checkCmd.ExecuteScalar());
                             if (existingAppointments > 0)
                             {
@@ -150,6 +149,31 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ScheduleApointment_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void strip_doctorprofile_Opening(object sender, CancelEventArgs e)
+        {
+            if (cbx_doctor.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a doctor first.", "No Doctor Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string selectedDoctor = cbx_doctor.SelectedItem.ToString();
+
+            // You can split the doctor name into first and last if needed
+            string[] names = selectedDoctor.Split(' ');
+            string firstName = names.Length > 0 ? names[0] : "";
+            string lastName = names.Length > 1 ? names[1] : "";
+
+            // Pass the names to the DoctorProfileForm (you'll need to create this form)
+            DoctorProfile profileForm = new DoctorProfile(firstName, lastName);
+            profileForm.ShowDialog(); // or .Show() if you don't want it modal
         }
     }
 }

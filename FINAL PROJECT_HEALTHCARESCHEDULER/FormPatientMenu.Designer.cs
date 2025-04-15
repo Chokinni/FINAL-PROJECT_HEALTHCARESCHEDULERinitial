@@ -163,7 +163,7 @@
             lblWelcome.AutoSize = true;
             lblWelcome.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblWelcome.ForeColor = Color.White;
-            lblWelcome.Location = new Point(36, 156);
+            lblWelcome.Location = new Point(12, 156);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(179, 20);
             lblWelcome.TabIndex = 1;

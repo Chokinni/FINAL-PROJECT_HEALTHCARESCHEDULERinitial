@@ -11,10 +11,9 @@ using System.Windows.Forms;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
-    public partial class CancelAppointment : UserControl
+    public partial class CancelAppointment : BaseClass
     {
-        private string loggedInFirstName;
-        private string loggedInLastName;
+        
         private int selectedUserID; // Store the selected appointment's UserID
         private DateTime selectedAppointmentDate; // Store the selected appointment's date
         public CancelAppointment(string firstName, string lastName)
@@ -41,7 +40,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             selectedAppointmentDate = Convert.ToDateTime(selectedRow.Cells["AppointmentDate"].Value);
 
             // Step 4: Update the status to "Cancelled" in the database
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = GetConnection())
             {
                 try
                 {
@@ -88,7 +87,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_LoadAppCancel_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {
@@ -191,7 +190,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 return;
             }
 
-            using (OleDbConnection con = DatabaseHelper.GetConnection())
+            using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
                 {
