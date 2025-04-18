@@ -43,6 +43,7 @@
             btn_register = new Button();
             lbl_noacc = new Label();
             showpasslogin = new CheckBox();
+            btn_forgotpass = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_patient).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picture_doc).BeginInit();
@@ -213,6 +214,23 @@
             showpasslogin.UseVisualStyleBackColor = false;
             showpasslogin.CheckedChanged += showpasslogin_CheckedChanged;
             // 
+            // btn_forgotpass
+            // 
+            btn_forgotpass.BackColor = Color.FromArgb(34, 77, 83);
+            btn_forgotpass.FlatAppearance.BorderSize = 0;
+            btn_forgotpass.FlatAppearance.MouseDownBackColor = Color.FromArgb(8, 176, 161);
+            btn_forgotpass.FlatAppearance.MouseOverBackColor = Color.FromArgb(8, 176, 161);
+            btn_forgotpass.FlatStyle = FlatStyle.Flat;
+            btn_forgotpass.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_forgotpass.ForeColor = Color.White;
+            btn_forgotpass.Location = new Point(591, 600);
+            btn_forgotpass.Name = "btn_forgotpass";
+            btn_forgotpass.Size = new Size(143, 29);
+            btn_forgotpass.TabIndex = 58;
+            btn_forgotpass.Text = "Forget Password";
+            btn_forgotpass.UseVisualStyleBackColor = false;
+            btn_forgotpass.Click += btn_forgotpass_Click;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -220,6 +238,7 @@
             BackgroundImage = Properties.Resources.blue_bg;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(933, 654);
+            Controls.Add(btn_forgotpass);
             Controls.Add(showpasslogin);
             Controls.Add(lbl_noacc);
             Controls.Add(btn_register);
@@ -261,5 +280,6 @@
         private Button btn_register;
         private Label lbl_noacc;
         private CheckBox showpasslogin;
+        private Button btn_forgotpass;
     }
 }

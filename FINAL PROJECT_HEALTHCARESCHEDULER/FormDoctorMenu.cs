@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
@@ -19,7 +22,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             InitializeComponent();
             loggedInUsername = firstName;// Store username in a variable
             loggedInLastName = lastName;// Store username in a variable
-                                       //lblWelcome.AutoSize = false;
+                                        //lblWelcome.AutoSize = false;
                                         // lblWelcome.MaximumSize = new Size(300, 0); // Width limit, height auto-adjusts
                                         // lblWelcome.AutoEllipsis = false;
 
@@ -97,6 +100,108 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
+        }
+
+        private void picNotificationdoc_Click(object sender, EventArgs e)
+        {
+            using (OleDbConnection con = BaseClass.GetConnection())
+            {
+                try
+                {
+                    con.Open();
+                    string doctorFullName = loggedInUsername + " " + loggedInLastName;
+                    string query = @"
+    SELECT AppointmentID, Patient, AppointmentDate, Specialization, AppointmentType, Status, IsUpdated
+    FROM Patientsschedule
+    WHERE Doctor = @Doctor
+    AND DoctorNotification = False";
+
+                    using (OleDbCommand cmd = new OleDbCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Doctor", doctorFullName);
+
+                        using (OleDbDataReader reader = cmd.ExecuteReader())
+                        {
+                            bool hasNotifications = false;
+
+                            while (reader.Read())
+                            {
+                                hasNotifications = true;
+
+                                int appointmentId = Convert.ToInt32(reader["AppointmentID"]);
+                                string patientName = reader["Patient"].ToString();
+                                DateTime appointmentTime = Convert.ToDateTime(reader["AppointmentDate"]);
+                                string specialization = reader["Specialization"].ToString();
+                                string appointmentType = reader["AppointmentType"].ToString();
+                                string status = reader["Status"].ToString();
+
+                                // Explicitly handle DBNull and convert the 'IsUpdated' field properly
+                                int isUpdatedValue = reader["IsUpdated"] != DBNull.Value ? Convert.ToInt32(reader["IsUpdated"]) : 0;
+                                bool isUpdated = (isUpdatedValue == -1); // -1 means True in Access Yes/No fields
+
+                                if (isUpdated)
+                                {
+                                    // 🔄 Updated appointment
+                                    PopupNotifier popupUpdate = new PopupNotifier();
+                                    popupUpdate.TitleText = "Appointment Updated";
+                                    popupUpdate.ContentText = $"{patientName} has rescheduled.\nNew Time: {appointmentTime:MM/dd/yyyy hh:mm tt}";
+                                    popupUpdate.Popup();
+                                }
+                                else if (status == "Pending")
+                                {
+                                    // 🆕 New appointment
+                                    PopupNotifier popup = new PopupNotifier();
+                                    popup.TitleText = "New Appointment Request";
+                                    popup.ContentText = $"{patientName} ({specialization})\n{appointmentTime:MM/dd/yyyy hh:mm tt} ({appointmentType})";
+                                    popup.Popup();
+                                }
+                                else if (status == "Cancelled")
+                                {
+                                    // ❌ Cancelled appointment
+                                    PopupNotifier popupCancel = new PopupNotifier();
+                                    popupCancel.TitleText = "Appointment Cancelled";
+                                    popupCancel.ContentText = $"{patientName} has cancelled their appointment for {appointmentTime:MM/dd/yyyy hh:mm tt}.";
+                                    popupCancel.Popup();
+                                }
+
+                                MarkNotificationAsRead(appointmentId); // Sets DoctorNotification = True and optionally IsUpdated = False
+                            }
+
+                            if (!hasNotifications)
+                            {
+                                PopupNotifier noNotifications = new PopupNotifier();
+                                noNotifications.TitleText = "No New Notifications";
+                                noNotifications.ContentText = "You have no new or updated appointments.";
+                                noNotifications.Popup();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading notifications: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void MarkNotificationAsRead(int appointmentId)
+        {
+            using (OleDbConnection con = BaseClass.GetConnection())
+            {
+                try
+                {
+                    con.Open();
+                    string query = "UPDATE Patientsschedule SET DoctorNotification = True, IsUpdated = False WHERE AppointmentID = @AppointmentId";
+                    using (OleDbCommand cmd = new OleDbCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@AppointmentId", appointmentId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error marking notification as read: " + ex.Message);
+                }
+            }
         }
     }
 }

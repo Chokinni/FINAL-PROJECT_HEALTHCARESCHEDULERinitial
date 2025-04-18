@@ -114,7 +114,7 @@
             btn_reglogin.FlatStyle = FlatStyle.Flat;
             btn_reglogin.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_reglogin.ForeColor = Color.White;
-            btn_reglogin.Location = new Point(878, 631);
+            btn_reglogin.Location = new Point(863, 628);
             btn_reglogin.Name = "btn_reglogin";
             btn_reglogin.Size = new Size(143, 29);
             btn_reglogin.TabIndex = 18;
@@ -142,7 +142,7 @@
             btn_signup.FlatStyle = FlatStyle.Flat;
             btn_signup.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_signup.ForeColor = Color.White;
-            btn_signup.Location = new Point(692, 631);
+            btn_signup.Location = new Point(677, 628);
             btn_signup.Name = "btn_signup";
             btn_signup.Size = new Size(143, 29);
             btn_signup.TabIndex = 16;
@@ -235,7 +235,7 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(12, 370);
+            label4.Location = new Point(27, 385);
             label4.Name = "label4";
             label4.Size = new Size(332, 20);
             label4.TabIndex = 3;
@@ -353,7 +353,7 @@
             btn_generateUsername.FlatStyle = FlatStyle.Flat;
             btn_generateUsername.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_generateUsername.ForeColor = Color.White;
-            btn_generateUsername.Location = new Point(1058, 618);
+            btn_generateUsername.Location = new Point(1043, 615);
             btn_generateUsername.Name = "btn_generateUsername";
             btn_generateUsername.Size = new Size(143, 51);
             btn_generateUsername.TabIndex = 32;

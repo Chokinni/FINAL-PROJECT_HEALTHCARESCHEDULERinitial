@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPatientMenu));
             panel2 = new Panel();
             btn_meeting = new Button();
             btn_appointments = new Button();
@@ -42,9 +43,16 @@
             label3 = new Label();
             lbl_exitpatient = new Label();
             panelContainer = new Panel();
+            redDot = new PictureBox();
+            picture_clear = new PictureBox();
+            picNotificationBell = new PictureBox();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            panelContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)redDot).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picture_clear).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picNotificationBell).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -61,9 +69,9 @@
             panel2.Controls.Add(pictureBox1);
             panel2.Dock = DockStyle.Left;
             panel2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            panel2.Location = new Point(0, 45);
+            panel2.Location = new Point(0, 48);
             panel2.Name = "panel2";
-            panel2.Size = new Size(250, 631);
+            panel2.Size = new Size(250, 628);
             panel2.TabIndex = 3;
             // 
             // btn_meeting
@@ -188,7 +196,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1105, 45);
+            panel1.Size = new Size(1105, 48);
             panel1.TabIndex = 2;
             // 
             // label3
@@ -219,11 +227,47 @@
             // panelContainer
             // 
             panelContainer.BackColor = Color.MistyRose;
+            panelContainer.Controls.Add(redDot);
+            panelContainer.Controls.Add(picture_clear);
+            panelContainer.Controls.Add(picNotificationBell);
             panelContainer.Dock = DockStyle.Fill;
-            panelContainer.Location = new Point(250, 45);
+            panelContainer.Location = new Point(250, 48);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(855, 631);
+            panelContainer.Size = new Size(855, 628);
             panelContainer.TabIndex = 4;
+            // 
+            // redDot
+            // 
+            redDot.BackgroundImage = (Image)resources.GetObject("redDot.BackgroundImage");
+            redDot.BackgroundImageLayout = ImageLayout.Stretch;
+            redDot.Location = new Point(781, 0);
+            redDot.Name = "redDot";
+            redDot.Size = new Size(26, 30);
+            redDot.TabIndex = 3;
+            redDot.TabStop = false;
+            redDot.Click += redDot_Click;
+            // 
+            // picture_clear
+            // 
+            picture_clear.BackgroundImage = Properties.Resources.clear;
+            picture_clear.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_clear.Location = new Point(693, 19);
+            picture_clear.Name = "picture_clear";
+            picture_clear.Size = new Size(37, 30);
+            picture_clear.TabIndex = 2;
+            picture_clear.TabStop = false;
+            picture_clear.Click += picture_clear_Click;
+            // 
+            // picNotificationBell
+            // 
+            picNotificationBell.BackgroundImage = Properties.Resources.bell;
+            picNotificationBell.BackgroundImageLayout = ImageLayout.Stretch;
+            picNotificationBell.Location = new Point(752, 6);
+            picNotificationBell.Name = "picNotificationBell";
+            picNotificationBell.Size = new Size(44, 43);
+            picNotificationBell.TabIndex = 0;
+            picNotificationBell.TabStop = false;
+            picNotificationBell.Click += picNotificationBell_Click;
             // 
             // FormPatientMenu
             // 
@@ -242,6 +286,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panelContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)redDot).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picture_clear).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picNotificationBell).EndInit();
             ResumeLayout(false);
         }
 
@@ -261,5 +309,8 @@
         private Label lbl_exitpatient;
         private Panel panelContainer;
         private Button btn_meeting;
+        private PictureBox picNotificationBell;
+        private PictureBox picture_clear;
+        private PictureBox redDot;
     }
 }

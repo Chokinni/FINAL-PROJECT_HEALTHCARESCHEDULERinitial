@@ -12,8 +12,10 @@
   <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
     <PackageReference Include="Google.Apis.Calendar.v3" Version="1.69.0.3667" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.3" />
+    <PackageReference Include="Tulpep.NotificationWindow" Version="1.1.38" />
   </ItemGroup>
 
   <ItemGroup>

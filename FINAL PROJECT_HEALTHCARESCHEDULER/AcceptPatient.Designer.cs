@@ -78,7 +78,7 @@
             Patient_profilestrip.ImageScalingSize = new Size(20, 20);
             Patient_profilestrip.Items.AddRange(new ToolStripItem[] { viewPatientProfileToolStripMenuItem });
             Patient_profilestrip.Name = "Patient_profilestrip";
-            Patient_profilestrip.Size = new Size(211, 56);
+            Patient_profilestrip.Size = new Size(207, 28);
             Patient_profilestrip.Opening += Patient_profilestrip_Opening;
             // 
             // viewPatientProfileToolStripMenuItem

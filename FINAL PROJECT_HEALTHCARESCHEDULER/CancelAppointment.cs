@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
@@ -38,7 +39,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             // Step 3: Retrieve the UserID and AppointmentDate from the selected row
             selectedUserID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
             selectedAppointmentDate = Convert.ToDateTime(selectedRow.Cells["AppointmentDate"].Value);
-
+            string patientName = selectedRow.Cells["Patient"].Value?.ToString();
+            int appointmentID = Convert.ToInt32(selectedRow.Cells["AppointmentID"].Value);
             // Step 4: Update the status to "Cancelled" in the database
             using (OleDbConnection con = GetConnection())
             {
@@ -47,7 +49,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     con.Open();
                     string updateQuery = @"
                         UPDATE Patientsschedule 
-                        SET Status = @Status 
+                        SET Status = @Status, DoctorNotification = False
                         WHERE UserID = @UserID 
                           AND AppointmentDate = @AppointmentDate";
                     using (OleDbCommand cmd = new OleDbCommand(updateQuery, con))
@@ -59,6 +61,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            PopupNotifier popup = new PopupNotifier();
+                            popup.TitleText = "Appointment Cancelled";
+                            popup.ContentText = $"{patientName} has cancelled their appointment on {selectedAppointmentDate:MM/dd/yyyy hh:mm tt}.";
+                            popup.Popup();
+
                             MessageBox.Show("Appointment cancelled successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             btn_LoadAppCancel_Click(sender, e); // Refresh the DataGridView
                         }
@@ -189,7 +196,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             {
                 return;
             }
-
+            int appointmentID = Convert.ToInt32(selectedRow.Cells["AppointmentID"].Value);
             using (OleDbConnection con = BaseClass.GetConnection())
             {
                 try
@@ -209,6 +216,18 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            // Mark that patient needs notification
+                            string updateNotifQuery = @"UPDATE Doctorschedule 
+                                  SET PatientNotification = '1' 
+                                  WHERE AppointmentID = @AppointmentID";
+
+                            using (OleDbCommand notifCmd = new OleDbCommand(updateNotifQuery, con))
+                            {
+                                notifCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                                notifCmd.ExecuteNonQuery();
+                            }
+
+
                             MessageBox.Show("Appointment deleted successfully!", "Success",
                                           MessageBoxButtons.OK, MessageBoxIcon.Information);
                             btn_LoadAppCancel_Click(sender, e); // Refresh the DataGridView
@@ -227,5 +246,6 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 }
             }
         }
+        
     }
 }

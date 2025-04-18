@@ -55,6 +55,7 @@
             btn_join.TabIndex = 18;
             btn_join.Text = "JOIN MEETING";
             btn_join.UseVisualStyleBackColor = false;
+            btn_join.Click += btn_join_Click;
             // 
             // lbl_Myonlinemeeting
             // 
@@ -77,6 +78,7 @@
             btn_loadschedmeeting.TabIndex = 20;
             btn_loadschedmeeting.Text = "LOAD SCHEDULE";
             btn_loadschedmeeting.UseVisualStyleBackColor = false;
+            btn_loadschedmeeting.Click += btn_loadschedmeeting_Click;
             // 
             // OnlineMeeting
             // 

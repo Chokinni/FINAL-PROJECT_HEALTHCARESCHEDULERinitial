@@ -111,5 +111,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         {
 
         }
+
+        private void btn_forgotpass_Click(object sender, EventArgs e)
+        {
+            ForgetPass forgetpass=new ForgetPass();
+            forgetpass.ShowDialog();
+        }
     }
 }

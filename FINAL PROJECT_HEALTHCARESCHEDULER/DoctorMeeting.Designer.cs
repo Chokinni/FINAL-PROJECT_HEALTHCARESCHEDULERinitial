@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DoctorMeeting));
             lbl_MyonlinemeetingDOC = new Label();
             btn_startmeeting = new Button();
             table_CreateMeeting = new DataGridView();
             btn_SCHEDULE = new Button();
             btn_loadschedmeet = new Button();
+            btn_check = new Button();
             ((System.ComponentModel.ISupportInitialize)table_CreateMeeting).BeginInit();
             SuspendLayout();
             // 
@@ -51,12 +53,13 @@
             btn_startmeeting.BackColor = Color.LimeGreen;
             btn_startmeeting.FlatAppearance.BorderSize = 0;
             btn_startmeeting.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_startmeeting.Location = new Point(334, 513);
+            btn_startmeeting.Location = new Point(277, 504);
             btn_startmeeting.Name = "btn_startmeeting";
             btn_startmeeting.Size = new Size(179, 29);
             btn_startmeeting.TabIndex = 21;
             btn_startmeeting.Text = "START MEETING";
             btn_startmeeting.UseVisualStyleBackColor = false;
+            btn_startmeeting.Click += btn_startmeeting_Click;
             // 
             // table_CreateMeeting
             // 
@@ -72,7 +75,7 @@
             btn_SCHEDULE.BackColor = Color.LimeGreen;
             btn_SCHEDULE.FlatAppearance.BorderSize = 0;
             btn_SCHEDULE.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_SCHEDULE.Location = new Point(92, 513);
+            btn_SCHEDULE.Location = new Point(35, 504);
             btn_SCHEDULE.Name = "btn_SCHEDULE";
             btn_SCHEDULE.Size = new Size(196, 29);
             btn_SCHEDULE.TabIndex = 27;
@@ -85,7 +88,7 @@
             btn_loadschedmeet.BackColor = Color.LimeGreen;
             btn_loadschedmeet.FlatAppearance.BorderSize = 0;
             btn_loadschedmeet.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_loadschedmeet.Location = new Point(571, 513);
+            btn_loadschedmeet.Location = new Point(514, 504);
             btn_loadschedmeet.Name = "btn_loadschedmeet";
             btn_loadschedmeet.Size = new Size(174, 29);
             btn_loadschedmeet.TabIndex = 28;
@@ -93,10 +96,23 @@
             btn_loadschedmeet.UseVisualStyleBackColor = false;
             btn_loadschedmeet.Click += btn_loadschedmeet_Click;
             // 
+            // btn_check
+            // 
+            btn_check.BackColor = Color.Transparent;
+            btn_check.BackgroundImage = (Image)resources.GetObject("btn_check.BackgroundImage");
+            btn_check.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_check.Location = new Point(721, 491);
+            btn_check.Name = "btn_check";
+            btn_check.Size = new Size(49, 42);
+            btn_check.TabIndex = 29;
+            btn_check.UseVisualStyleBackColor = false;
+            btn_check.Click += btn_check_Click;
+            // 
             // DoctorMeeting
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btn_check);
             Controls.Add(btn_loadschedmeet);
             Controls.Add(btn_SCHEDULE);
             Controls.Add(lbl_MyonlinemeetingDOC);
@@ -116,5 +132,6 @@
         private DataGridView table_CreateMeeting;
         private Button btn_SCHEDULE;
         private Button btn_loadschedmeet;
+        private Button btn_check;
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
@@ -104,6 +105,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             int userID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
             DateTime originalAppointmentDate = Convert.ToDateTime(selectedRow.Cells["AppointmentDate"].Value);
             string currentStatus = selectedRow.Cells["Status"].Value.ToString();
+            string doctorName = selectedRow.Cells["Doctor"].Value.ToString();
 
             // Step 4: Get the new appointment date from the DateTimePicker (datetime_sched)
             DateTime newAppointmentDate = datetime_sched.Value;
@@ -120,7 +122,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     string updateQuery = @"
                 UPDATE Patientsschedule 
                 SET AppointmentDate = @NewAppointmentDate, 
-                    Status = @NewStatus 
+                    Status = @NewStatus,
+                    DoctorNotification = False
                 WHERE UserID = @UserID 
                   AND AppointmentDate = @OriginalAppointmentDate";
                     using (OleDbCommand cmd = new OleDbCommand(updateQuery, con))
@@ -134,6 +137,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Appointment updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Optional: Show confirmation to patient
+                            PopupNotifier popup = new PopupNotifier();
+                            popup.TitleText = "Update Successful";
+                            popup.ContentText = $"Your appointment with Dr. {doctorName} has been updated to {newAppointmentDate:MM/dd/yyyy hh:mm tt}";
+                            popup.Popup();
                             btn_LoadSchedule_Click(sender, e); // Refresh the DataGridView
                         }
                         else

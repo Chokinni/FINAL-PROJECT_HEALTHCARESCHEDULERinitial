@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
+using System.Net;
+using System.Net.Mail;
 
 namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
@@ -115,8 +118,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         MessageBox.Show($"Doctor: {cbx_doctor.Text}, Specialty: {cbx_specialization.Text}, Patient: {loggedInFirstName} {loggedInLastName}, Date: {datetime_selectapp.Value}, UserID: {userID}, AppointmentType: {appointmentType}");
 
                         // Step 2: Insert Appointment into the Appointments table
-                        string insertQuery = @"INSERT INTO Patientsschedule ([Doctor],[Specialization],[Patient],[AppointmentDate],[Status],[UserID],[AppointmentType])
-                                      VALUES (@Doctor, @Specialization, @Patient, @AppointmentDate, @Status, @UserID, @AppointmentType);";
+                        string insertQuery = @"INSERT INTO Patientsschedule ([Doctor],[Specialization],[Patient],[AppointmentDate],[Status],[UserID],[AppointmentType],[DoctorNotification])
+                                      VALUES (@Doctor, @Specialization, @Patient, @AppointmentDate, @Status, @UserID, @AppointmentType, @DoctorNotification);";
 
                         using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, con))
                         {
@@ -127,6 +130,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             insertCmd.Parameters.AddWithValue("@Status", "Pending");
                             insertCmd.Parameters.AddWithValue("@UserID", userID);
                             insertCmd.Parameters.AddWithValue("@AppointmentType", appointmentType);
+                            insertCmd.Parameters.AddWithValue("@DoctorNotification", false);
 
 
 
@@ -134,6 +138,130 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Appointment successfully booked!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                // Fetch doctor email credentials
+                                string emailQuery = "SELECT EmailAddress, AppPassword FROM USERS WHERE [FirstName] + ' ' + [LastName] = @DoctorName";
+                                using (OleDbCommand emailCmd = new OleDbCommand(emailQuery, con))
+                                {
+                                    emailCmd.Parameters.AddWithValue("@DoctorName", cbx_doctor.Text);
+                                    using (OleDbDataReader reader = emailCmd.ExecuteReader())
+                                    {
+                                        if (reader.Read())
+                                        {
+                                            string doctorEmail = reader["EmailAddress"].ToString();
+                                            string appPassword = reader["AppPassword"].ToString();
+
+                                            // Compose email
+                                            string subject = "New Appointment Notification";
+
+                                            string body = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }}
+        .container {{
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }}
+        .header {{
+            background-color: #1a73e8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }}
+        .content {{
+            padding: 30px;
+        }}
+        .content h3 {{
+            margin-top: 0;
+            color: #1a73e8;
+        }}
+        .details {{
+            background-color: #f1f1f1;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+        }}
+        .footer {{
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            padding: 15px;
+            background-color: #f1f1f1;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h2>Cebu South General Hospital</h2>
+        </div>
+        <div class='content'>
+            <p>Dear Dr. {cbx_doctor.Text},</p>
+
+            <p>You have a new appointment scheduled by a patient. Please find the details below:</p>
+
+            <div class='details'>
+                <p><strong>Patient:</strong> {loggedInFirstName} {loggedInLastName}</p>
+                <p><strong>Specialization:</strong> {cbx_specialization.Text}</p>
+                <p><strong>Appointment Type:</strong> {appointmentType}</p>
+                <p><strong>Date:</strong> {datetime_selectapp.Value:MMMM dd, yyyy}</p>
+                <p><strong>Time:</strong> {datetime_selectapp.Value:hh:mm tt}</p>
+            </div>
+
+            <p>Please log in to the Hospital Scheduler system to review or manage this appointment.</p>
+
+            <p>Thank you for your continued commitment to patient care.</p>
+
+            <p>Best regards,<br/>Hospital Scheduler System</p>
+        </div>
+        <div class='footer'>
+            &copy; {DateTime.Now.Year} Hospital Scheduler. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>";
+
+                                            try
+                                            {
+                                                string senderEmail = "migel24asid@gmail.com";
+                                                string senderAppPassword = "lcvl rhgt pqki kxbk";
+
+                                                // Send email using your own SMTP (you can use Gmail, Outlook, etc.)
+                                                MailMessage mail = new MailMessage();
+
+                                                mail.From = new MailAddress(senderEmail, "Healthcare Scheduler");
+                                                mail.To.Add(doctorEmail); // Send to doctor
+                                                mail.Subject = subject;
+                                                mail.Body = body;
+                                                mail.IsBodyHtml = true;
+
+                                                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                                                smtpClient.Credentials = new NetworkCredential(senderEmail, senderAppPassword);
+                                                smtpClient.EnableSsl = true;
+                                                smtpClient.Send(mail);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Appointment booked, but failed to send email.\n" + ex.Message, "Email Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Doctor's email not found. Appointment booked without email notification.", "Email Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
+                                    }
+                                }
                             }
                             else
                             {

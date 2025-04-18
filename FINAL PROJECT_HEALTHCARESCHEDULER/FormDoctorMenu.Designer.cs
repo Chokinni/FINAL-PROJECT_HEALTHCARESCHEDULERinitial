@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDoctorMenu));
             panel1 = new Panel();
             label3 = new Label();
             lbl_exitdoctor = new Label();
@@ -41,9 +42,14 @@
             lblWelcome = new Label();
             pictureBox1 = new PictureBox();
             panelContainerDoctor = new Panel();
+            redDot = new PictureBox();
+            picNotificationdoc = new PictureBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelContainerDoctor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)redDot).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picNotificationdoc).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -203,11 +209,34 @@
             // panelContainerDoctor
             // 
             panelContainerDoctor.BackColor = Color.MistyRose;
+            panelContainerDoctor.Controls.Add(redDot);
+            panelContainerDoctor.Controls.Add(picNotificationdoc);
             panelContainerDoctor.Dock = DockStyle.Fill;
             panelContainerDoctor.Location = new Point(250, 45);
             panelContainerDoctor.Name = "panelContainerDoctor";
             panelContainerDoctor.Size = new Size(855, 631);
             panelContainerDoctor.TabIndex = 5;
+            // 
+            // redDot
+            // 
+            redDot.BackgroundImage = (Image)resources.GetObject("redDot.BackgroundImage");
+            redDot.BackgroundImageLayout = ImageLayout.Stretch;
+            redDot.Location = new Point(792, 6);
+            redDot.Name = "redDot";
+            redDot.Size = new Size(26, 30);
+            redDot.TabIndex = 7;
+            redDot.TabStop = false;
+            // 
+            // picNotificationdoc
+            // 
+            picNotificationdoc.BackgroundImage = Properties.Resources.bell;
+            picNotificationdoc.BackgroundImageLayout = ImageLayout.Stretch;
+            picNotificationdoc.Location = new Point(755, 6);
+            picNotificationdoc.Name = "picNotificationdoc";
+            picNotificationdoc.Size = new Size(44, 43);
+            picNotificationdoc.TabIndex = 6;
+            picNotificationdoc.TabStop = false;
+            picNotificationdoc.Click += picNotificationdoc_Click;
             // 
             // FormDoctorMenu
             // 
@@ -226,6 +255,9 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelContainerDoctor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)redDot).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picNotificationdoc).EndInit();
             ResumeLayout(false);
         }
 
@@ -244,5 +276,7 @@
         private Button btn_cancel;
         private Panel panelContainerDoctor;
         private Button btn_logoutDoc;
+        private PictureBox picNotificationdoc;
+        private PictureBox redDot;
     }
 }
