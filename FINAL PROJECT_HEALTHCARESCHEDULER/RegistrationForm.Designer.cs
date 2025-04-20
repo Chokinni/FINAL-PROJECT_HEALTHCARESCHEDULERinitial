@@ -77,6 +77,11 @@
             label3 = new Label();
             tbx_apppass = new TextBox();
             lbl_apppass = new Label();
+            tbx_Gender = new TextBox();
+            label1 = new Label();
+            datetime_birthdate = new DateTimePicker();
+            label5 = new Label();
+            lbl_format = new Label();
             ((System.ComponentModel.ISupportInitialize)picturebox_hospital).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_profile).BeginInit();
@@ -86,9 +91,10 @@
             // 
             reg_showpass.AutoSize = true;
             reg_showpass.BackColor = Color.Transparent;
+            reg_showpass.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             reg_showpass.Location = new Point(401, 366);
             reg_showpass.Name = "reg_showpass";
-            reg_showpass.Size = new Size(132, 24);
+            reg_showpass.Size = new Size(140, 24);
             reg_showpass.TabIndex = 20;
             reg_showpass.Text = "Show Password";
             reg_showpass.UseVisualStyleBackColor = false;
@@ -171,10 +177,10 @@
             // 
             lbl_regpass.AutoSize = true;
             lbl_regpass.BackColor = Color.Transparent;
-            lbl_regpass.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_regpass.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_regpass.Location = new Point(398, 287);
             lbl_regpass.Name = "lbl_regpass";
-            lbl_regpass.Size = new Size(83, 20);
+            lbl_regpass.Size = new Size(91, 20);
             lbl_regpass.TabIndex = 13;
             lbl_regpass.Text = "Password";
             // 
@@ -182,10 +188,10 @@
             // 
             lbl_reguser.AutoSize = true;
             lbl_reguser.BackColor = Color.Transparent;
-            lbl_reguser.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_reguser.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_reguser.Location = new Point(398, 200);
             lbl_reguser.Name = "lbl_reguser";
-            lbl_reguser.Size = new Size(86, 20);
+            lbl_reguser.Size = new Size(94, 20);
             lbl_reguser.TabIndex = 12;
             lbl_reguser.Text = "Username";
             // 
@@ -264,10 +270,10 @@
             // 
             lbl_regFirstname.AutoSize = true;
             lbl_regFirstname.BackColor = Color.Transparent;
-            lbl_regFirstname.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_regFirstname.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_regFirstname.Location = new Point(669, 281);
             lbl_regFirstname.Name = "lbl_regFirstname";
-            lbl_regFirstname.Size = new Size(92, 20);
+            lbl_regFirstname.Size = new Size(102, 20);
             lbl_regFirstname.TabIndex = 22;
             lbl_regFirstname.Text = "First Name";
             // 
@@ -283,10 +289,10 @@
             // 
             lbl_reglastname.AutoSize = true;
             lbl_reglastname.BackColor = Color.Transparent;
-            lbl_reglastname.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_reglastname.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_reglastname.Location = new Point(672, 200);
             lbl_reglastname.Name = "lbl_reglastname";
-            lbl_reglastname.Size = new Size(91, 20);
+            lbl_reglastname.Size = new Size(100, 20);
             lbl_reglastname.TabIndex = 24;
             lbl_reglastname.Text = "Last Name";
             // 
@@ -304,10 +310,10 @@
             // 
             lbl_role.AutoSize = true;
             lbl_role.BackColor = Color.Transparent;
-            lbl_role.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_role.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_role.Location = new Point(693, 370);
             lbl_role.Name = "lbl_role";
-            lbl_role.Size = new Size(43, 20);
+            lbl_role.Size = new Size(47, 20);
             lbl_role.TabIndex = 27;
             lbl_role.Text = "Role";
             // 
@@ -315,10 +321,10 @@
             // 
             lbl_specialty.AutoSize = true;
             lbl_specialty.BackColor = Color.Transparent;
-            lbl_specialty.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_specialty.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_specialty.Location = new Point(401, 420);
             lbl_specialty.Name = "lbl_specialty";
-            lbl_specialty.Size = new Size(99, 20);
+            lbl_specialty.Size = new Size(108, 20);
             lbl_specialty.TabIndex = 28;
             lbl_specialty.Text = "SPECIALTY";
             // 
@@ -365,10 +371,10 @@
             // 
             Number.AutoSize = true;
             Number.BackColor = Color.Transparent;
-            Number.Font = new Font("Microsoft Sans Serif", 10F);
+            Number.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Number.Location = new Point(974, 200);
             Number.Name = "Number";
-            Number.Size = new Size(86, 20);
+            Number.Size = new Size(95, 20);
             Number.TabIndex = 33;
             Number.Text = "Phone No.";
             // 
@@ -376,10 +382,10 @@
             // 
             Email.AutoSize = true;
             Email.BackColor = Color.Transparent;
-            Email.Font = new Font("Microsoft Sans Serif", 10F);
+            Email.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Email.Location = new Point(1185, 200);
             Email.Name = "Email";
-            Email.Size = new Size(118, 20);
+            Email.Size = new Size(131, 20);
             Email.TabIndex = 34;
             Email.Text = "Email Address";
             // 
@@ -411,10 +417,10 @@
             // 
             license.AutoSize = true;
             license.BackColor = Color.Transparent;
-            license.Font = new Font("Microsoft Sans Serif", 10F);
+            license.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             license.Location = new Point(974, 286);
             license.Name = "license";
-            license.Size = new Size(161, 20);
+            license.Size = new Size(180, 20);
             license.TabIndex = 37;
             license.Text = "Medical License No.";
             // 
@@ -430,10 +436,10 @@
             // 
             Experience.AutoSize = true;
             Experience.BackColor = Color.Transparent;
-            Experience.Font = new Font("Microsoft Sans Serif", 10F);
+            Experience.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Experience.Location = new Point(1172, 287);
             Experience.Name = "Experience";
-            Experience.Size = new Size(159, 20);
+            Experience.Size = new Size(178, 20);
             Experience.TabIndex = 39;
             Experience.Text = "Years of Experience";
             // 
@@ -449,10 +455,10 @@
             // 
             HomeAddress.AutoSize = true;
             HomeAddress.BackColor = Color.Transparent;
-            HomeAddress.Font = new Font("Microsoft Sans Serif", 10F);
+            HomeAddress.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             HomeAddress.Location = new Point(974, 385);
             HomeAddress.Name = "HomeAddress";
-            HomeAddress.Size = new Size(121, 20);
+            HomeAddress.Size = new Size(133, 20);
             HomeAddress.TabIndex = 41;
             HomeAddress.Text = "Home Address";
             // 
@@ -468,10 +474,10 @@
             // 
             Certified.AutoSize = true;
             Certified.BackColor = Color.Transparent;
-            Certified.Font = new Font("Microsoft Sans Serif", 10F);
+            Certified.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Certified.Location = new Point(1368, 287);
             Certified.Name = "Certified";
-            Certified.Size = new Size(122, 20);
+            Certified.Size = new Size(137, 20);
             Certified.TabIndex = 43;
             Certified.Text = "Board Certified";
             // 
@@ -487,10 +493,10 @@
             // 
             Medschool.AutoSize = true;
             Medschool.BackColor = Color.Transparent;
-            Medschool.Font = new Font("Microsoft Sans Serif", 10F);
+            Medschool.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Medschool.Location = new Point(1186, 386);
             Medschool.Name = "Medschool";
-            Medschool.Size = new Size(123, 20);
+            Medschool.Size = new Size(137, 20);
             Medschool.TabIndex = 45;
             Medschool.Text = "Medical School";
             // 
@@ -506,10 +512,10 @@
             // 
             lblmedia.AutoSize = true;
             lblmedia.BackColor = Color.Transparent;
-            lblmedia.Font = new Font("Microsoft Sans Serif", 10F);
+            lblmedia.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblmedia.Location = new Point(1379, 383);
             lblmedia.Name = "lblmedia";
-            lblmedia.Size = new Size(105, 20);
+            lblmedia.Size = new Size(117, 20);
             lblmedia.TabIndex = 47;
             lblmedia.Text = "Social Media";
             // 
@@ -525,10 +531,10 @@
             // 
             lbl_contactemer.AutoSize = true;
             lbl_contactemer.BackColor = Color.Transparent;
-            lbl_contactemer.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_contactemer.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_contactemer.Location = new Point(965, 475);
             lbl_contactemer.Name = "lbl_contactemer";
-            lbl_contactemer.Size = new Size(191, 18);
+            lbl_contactemer.Size = new Size(215, 18);
             lbl_contactemer.TabIndex = 49;
             lbl_contactemer.Text = "Emergency Contact Person";
             // 
@@ -544,10 +550,10 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Microsoft Sans Serif", 10F);
+            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(1194, 474);
             label2.Name = "label2";
-            label2.Size = new Size(101, 20);
+            label2.Size = new Size(113, 20);
             label2.TabIndex = 51;
             label2.Text = "Relationship";
             // 
@@ -563,10 +569,10 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Microsoft Sans Serif", 10F);
-            label3.Location = new Point(1335, 474);
+            label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(1326, 473);
             label3.Name = "label3";
-            label3.Size = new Size(195, 20);
+            label3.Size = new Size(217, 20);
             label3.TabIndex = 53;
             label3.Text = "Emergency Contact NO. ";
             // 
@@ -582,12 +588,61 @@
             // 
             lbl_apppass.AutoSize = true;
             lbl_apppass.BackColor = Color.Transparent;
-            lbl_apppass.Font = new Font("Microsoft Sans Serif", 10F);
+            lbl_apppass.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_apppass.Location = new Point(1368, 200);
             lbl_apppass.Name = "lbl_apppass";
-            lbl_apppass.Size = new Size(143, 20);
+            lbl_apppass.Size = new Size(158, 20);
             lbl_apppass.TabIndex = 55;
             lbl_apppass.Text = "App Pass(EMAIL)";
+            // 
+            // tbx_Gender
+            // 
+            tbx_Gender.Location = new Point(401, 515);
+            tbx_Gender.Multiline = true;
+            tbx_Gender.Name = "tbx_Gender";
+            tbx_Gender.Size = new Size(146, 34);
+            tbx_Gender.TabIndex = 58;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(401, 473);
+            label1.Name = "label1";
+            label1.Size = new Size(70, 20);
+            label1.TabIndex = 57;
+            label1.Text = "Gender";
+            // 
+            // datetime_birthdate
+            // 
+            datetime_birthdate.Location = new Point(644, 515);
+            datetime_birthdate.Name = "datetime_birthdate";
+            datetime_birthdate.Size = new Size(250, 27);
+            datetime_birthdate.TabIndex = 59;
+            datetime_birthdate.ValueChanged += datetime_birthdate_ValueChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(644, 475);
+            label5.Name = "label5";
+            label5.Size = new Size(96, 20);
+            label5.TabIndex = 60;
+            label5.Text = "Birth Date";
+            // 
+            // lbl_format
+            // 
+            lbl_format.AutoSize = true;
+            lbl_format.BackColor = Color.Transparent;
+            lbl_format.Font = new Font("Microsoft Sans Serif", 8F);
+            lbl_format.Location = new Point(490, 203);
+            lbl_format.Name = "lbl_format";
+            lbl_format.Size = new Size(122, 17);
+            lbl_format.TabIndex = 61;
+            lbl_format.Text = "D/PXX-XXXX-XXX";
             // 
             // RegistrationForm
             // 
@@ -596,6 +651,11 @@
             BackgroundImage = Properties.Resources.blue_bg;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1545, 684);
+            Controls.Add(lbl_format);
+            Controls.Add(label5);
+            Controls.Add(datetime_birthdate);
+            Controls.Add(tbx_Gender);
+            Controls.Add(label1);
             Controls.Add(tbx_apppass);
             Controls.Add(lbl_apppass);
             Controls.Add(tbx_contactemer);
@@ -704,5 +764,10 @@
         private Label label3;
         private TextBox tbx_apppass;
         private Label lbl_apppass;
+        private TextBox tbx_Gender;
+        private Label label1;
+        private DateTimePicker datetime_birthdate;
+        private Label label5;
+        private Label lbl_format;
     }
 }

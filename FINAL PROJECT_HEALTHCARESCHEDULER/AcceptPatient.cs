@@ -31,6 +31,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                                                // Add other button customizations if necessary
 
         }
+        private DataTable originalData;
 
         private void CustomizeButton(Button btn)
         {
@@ -142,6 +143,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                             dgv.AutoResizeColumns();
+                            originalData = dt;
 
                             // Optional: Display a message
                             if (dt.Rows.Count > 0)
@@ -174,6 +176,25 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 {
                     con.Open();
 
+                    // First, get the appointment type
+                    string appointmentQuery = "SELECT AppointmentType FROM Appointments WHERE AppointmentID = @AppointmentID";
+                    string appointmentType = "";
+
+                    using (OleDbCommand appointmentCmd = new OleDbCommand(appointmentQuery, con))
+                    {
+                        appointmentCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                        object result = appointmentCmd.ExecuteScalar();
+
+                        if (result == null || result == DBNull.Value)
+                        {
+                            MessageBox.Show("Appointment not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        appointmentType = result.ToString();
+                    }
+
+                    // Get user ID
                     string userQuery = "SELECT ID FROM USERS WHERE [FirstName] = @FirstName AND [LastName] = @LastName";
                     using (OleDbCommand userCmd = new OleDbCommand(userQuery, con))
                     {
@@ -188,12 +209,12 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         }
 
                         int userID = Convert.ToInt32(result);
-                        string meetStatus = "Pending";
-                        string meetLink = "On the Making";
+                        string meetStatus = appointmentType == "Online" ? "Pending" : "N/A";
+                        string meetLink = appointmentType == "Online" ? "On the Making" : "N/A";
                         string doctorName = loggedInFirstName + " " + loggedInLastName;
 
                         string insertQuery = @"INSERT INTO Meeting ([MeetingStatus], [UserID], [MeetingLink], [DoctorName], [AppointmentID])
-                                       VALUES (@MeetingStatus, @UserID, @MeetingLink, @DoctorName, @AppointmentID)";
+                              VALUES (@MeetingStatus, @UserID, @MeetingLink, @DoctorName, @AppointmentID)";
 
                         using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, con))
                         {
@@ -256,6 +277,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             }
 
             string patientFirstName = nameParts[0];
+
             string patientLastName = nameParts[1];
 
             using (OleDbConnection con = BaseClass.GetConnection())
@@ -270,6 +292,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         SELECT EmailAddress 
                         FROM USERS 
                         WHERE FirstName = @PatientFirstName AND LastName = @PatientLastName";
+                    // Split the first name in case it contains multiple words (e.g., "Barry Korbin")
+                   
 
                     using (OleDbCommand patientEmailCmd = new OleDbCommand(getPatientEmailQuery, con))
                     {
@@ -353,11 +377,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                                     patientFullName,
                                     $"{loggedInFirstName} {loggedInLastName}",
                                     appointmentDate,
-                                   
+
                                     doctorEmail,
                                     doctorAppPassword, appointmentType);
 
-                                 // Refresh the DataGridView
+                                // Refresh the DataGridView
                                 MessageBox.Show("Appointment confirmed and notification email sent!", "Success",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 NotifyPatient(patientFullName);
@@ -581,14 +605,16 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             {
                 string fullName = table_AcceptAppointment.SelectedRows[0].Cells["Patient"].Value.ToString();
 
-                // Split full name into parts
-                string[] nameParts = fullName.Trim().Split(' ');
+                // NEW: Better name handling
+                string[] nameParts = fullName.Trim().Split(new[] { ' ' }, 2); // Split into max 2 parts
 
-                // Assign first and last name
-                string firstName = nameParts.Length > 0 ? nameParts[0] : "";
-                string lastName = nameParts.Length > 1 ? string.Join(" ", nameParts.Skip(1)) : "";
+                string firstName = nameParts[0];
+                string lastName = nameParts.Length > 1 ? nameParts[1] : ""; // Handle single-word names
 
-                // Open the patient profile form with first and last name
+                // DEBUG: Show what we're searching for
+                MessageBox.Show($"Searching for:\nFirst Name: '{firstName}'\nLast Name: '{lastName}'",
+                              "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 PatientProfile profileForm = new PatientProfile(firstName, lastName);
                 profileForm.ShowDialog();
             }
@@ -611,6 +637,49 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             currentPopup.TitleText = "APPOINTMENT ACCEPTED";
             currentPopup.ContentText = $"Dr. {loggedInFirstName} confirmed patient's appointment!";
             currentPopup.Popup();
+        }
+
+        private void txt_searchPatient_TextChanged(object sender, EventArgs e)
+        {
+            SearchByPatientName();
+        }
+        private void SearchByPatientName()
+        {
+            if (originalData == null)
+            {
+                MessageBox.Show("Please load appointments first!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string searchText = txt_searchPatient.Text.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // If search text is empty, show all records
+                table_AcceptAppointment.DataSource = originalData;
+                return;
+            }
+
+            // Create a new DataTable with the same schema
+            DataTable filteredData = originalData.Clone();
+
+            // Filter rows based on doctor name
+            foreach (DataRow row in originalData.Rows)
+            {
+                // Adjust "DoctorName" to the actual column name in your table
+                if (row["Patient"].ToString().ToLower().Contains(searchText))
+                {
+                    filteredData.ImportRow(row);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            table_AcceptAppointment.DataSource = filteredData;
+
+            if (filteredData.Rows.Count == 0)
+            {
+                MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

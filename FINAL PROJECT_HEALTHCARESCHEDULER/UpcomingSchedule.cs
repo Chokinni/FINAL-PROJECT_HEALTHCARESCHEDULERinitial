@@ -63,6 +63,35 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
                         // Bind to DataGridView
                         table_UpcomingSched.DataSource = dt;
+                        if (table_UpcomingSched.Columns.Contains("DoctorNotification"))
+                            table_UpcomingSched.Columns["DoctorNotification"].Visible = false;
+
+                        if (table_UpcomingSched.Columns.Contains("IsUpdated"))
+                            table_UpcomingSched.Columns["IsUpdated"].Visible = false;
+                        var dgv = table_UpcomingSched;
+
+                        dgv.EnableHeadersVisualStyles = false;
+                        dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SkyBlue;
+                        dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                        dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                        dgv.ColumnHeadersHeight = 35;
+
+                        dgv.DefaultCellStyle.BackColor = Color.White;
+                        dgv.DefaultCellStyle.ForeColor = Color.Black;
+                        dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                        dgv.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                        dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+                        dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+
+                        dgv.RowTemplate.Height = 30;
+                        dgv.GridColor = Color.LightGray;
+
+                        dgv.BorderStyle = BorderStyle.Fixed3D;
+                        dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                        dgv.AutoResizeColumns();
 
                         if (dt.Rows.Count > 0)
                         {

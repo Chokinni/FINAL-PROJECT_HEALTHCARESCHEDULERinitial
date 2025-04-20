@@ -19,6 +19,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
         }
+        private DataTable originalData;
 
         private void btn_loadschedmeeting_Click(object sender, EventArgs e)
         {
@@ -70,6 +71,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                         dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                         dgv.AutoResizeColumns();
+                        originalData = dt;
                     }
                 }
                 catch (Exception ex)
@@ -94,11 +96,17 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 // Get the meeting link from the selected row
                 DataGridViewRow row = table_OnlinemeetingAppointment.SelectedRows[0];
                 string meetLink = row.Cells["MeetingLink"].Value?.ToString();
+                string meetingStatus = row.Cells["MeetingStatus"].Value?.ToString();
 
                 // Validate that the meeting link exists
                 if (string.IsNullOrEmpty(meetLink))
                 {
                     MessageBox.Show("No meeting link available for this appointment. Please schedule the meeting first.");
+                    return;
+                }
+                if (meetingStatus == "Finished")
+                {
+                    MessageBox.Show("This meeting has already finished. You cannot join it.");
                     return;
                 }
 
@@ -112,6 +120,49 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             catch (Exception ex)
             {
                 MessageBox.Show("Error joining meeting: " + ex.Message);
+            }
+        }
+
+        private void txt_searchDoctor_TextChanged(object sender, EventArgs e)
+        {
+            SearchByDoctorName();
+        }
+        private void SearchByDoctorName()
+        {
+            if (originalData == null)
+            {
+                MessageBox.Show("Please load appointments first!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string searchText = txt_searchDoctor.Text.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // If search text is empty, show all records
+                table_OnlinemeetingAppointment.DataSource = originalData;
+                return;
+            }
+
+            // Create a new DataTable with the same schema
+            DataTable filteredData = originalData.Clone();
+
+            // Filter rows based on doctor name
+            foreach (DataRow row in originalData.Rows)
+            {
+                // Adjust "DoctorName" to the actual column name in your table
+                if (row["Doctor"].ToString().ToLower().Contains(searchText))
+                {
+                    filteredData.ImportRow(row);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            table_OnlinemeetingAppointment.DataSource = filteredData;
+
+            if (filteredData.Rows.Count == 0)
+            {
+                MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

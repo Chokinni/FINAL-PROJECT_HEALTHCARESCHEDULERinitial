@@ -8,6 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot;
+using OxyPlot.WindowsForms;
 using Tulpep.NotificationWindow;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -17,6 +21,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
     {
         string loggedInUsername;
         private string loggedInLastName;
+        private FormDoctorMenu docmenu;
         public FormDoctorMenu(string firstName, string lastName)
         {
             InitializeComponent();
@@ -48,6 +53,22 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
             lblWelcome.AutoEllipsis = false; // Optional
             lblWelcome.UseCompatibleTextRendering = false; // Optional but sometimes helps with text measuring where to put this
+                                                           // Month dropdown
+            cmbMonth.Items.AddRange(new string[]
+            {
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+            });
+            cmbMonth.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Year dropdown
+            for (int year = 2022; year <= DateTime.Now.Year; year++)
+            {
+                cmbYear.Items.Add(year.ToString());
+            }
+            cmbYear.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -97,9 +118,12 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void btn_logoutDoc_Click(object sender, EventArgs e)
         {
+
+
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
+
         }
 
         private void picNotificationdoc_Click(object sender, EventArgs e)
@@ -202,6 +226,163 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     Console.WriteLine("Error marking notification as read: " + ex.Message);
                 }
             }
+        }
+
+        private void btnLoadChart_Click(object sender, EventArgs e)
+        {
+            if (cmbMonth.SelectedIndex == -1 || cmbYear.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select both a month and a year.");
+                return;
+            }
+
+            int selectedMonth = cmbMonth.SelectedIndex + 1;
+            int selectedYear = int.Parse(cmbYear.SelectedItem.ToString());
+            LoadBarGraphData(selectedMonth, selectedYear);
+        }
+        private void LoadBarGraphData(int month, int year)
+        {
+            int acceptedFaceToFace = 0;
+            int acceptedOnline = 0;
+            int pending = 0;
+            int cancelled = 0;
+
+            using (OleDbConnection con = BaseClass.GetConnection())
+            {
+                try
+                {
+                    con.Open();
+                    string doctorFullName = $"{loggedInUsername} {loggedInLastName}".Trim();
+
+                    string query = @"
+                SELECT AppointmentDate, Status, AppointmentType, Doctor
+                FROM Appointments
+                WHERE MONTH(AppointmentDate) = ? AND YEAR(AppointmentDate) = ?";
+
+                    using (OleDbCommand cmd = new OleDbCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("?", month);
+                        cmd.Parameters.AddWithValue("?", year);
+
+                        using (OleDbDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string dbDoctor = reader["Doctor"].ToString().Trim();
+                                string status = reader["Status"].ToString().Trim();
+                                string type = reader["AppointmentType"].ToString().Trim();
+
+                                if (!dbDoctor.Equals(doctorFullName, StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                if (status.Equals("Accepted", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (type.Equals("Face-to-Face", StringComparison.OrdinalIgnoreCase))
+                                        acceptedFaceToFace++;
+                                    else if (type.Equals("Online", StringComparison.OrdinalIgnoreCase))
+                                        acceptedOnline++;
+                                }
+                                else if (status.Equals("Pending", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    pending++;
+                                }
+                                else if (status.Equals("Cancelled", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    cancelled++;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading chart data: " + ex.Message);
+                    return;
+                }
+            }
+
+            // Create the PlotModel with styling
+            var model = new PlotModel
+            {
+                Title = "Doctor's Appointment Analytics",
+                TitleFontSize = 18,
+                TitleFontWeight = FontWeights.Bold,
+                TextColor = OxyColors.Black,
+                PlotAreaBorderColor = OxyColors.Gray
+            };
+
+            var categoryAxis = new CategoryAxis
+            {
+                Position = AxisPosition.Left,
+                FontSize = 14,
+                //LabelFormatter = s => s,
+                TextColor = OxyColors.Black
+            };
+            categoryAxis.Labels.Add("Accepted (F2F)");
+            categoryAxis.Labels.Add("Accepted (Online)");
+            categoryAxis.Labels.Add("Pending");
+            categoryAxis.Labels.Add("Cancelled");
+            model.Axes.Add(categoryAxis);
+
+            var valueAxis = new LinearAxis
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                FontSize = 12,
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot,
+                TextColor = OxyColors.Black
+            };
+            model.Axes.Add(valueAxis);
+
+            var barSeries = new BarSeries
+            {
+                LabelPlacement = LabelPlacement.Inside,
+                LabelFormatString = "{0}",
+                FontSize = 14,
+                FillColor = OxyColors.SteelBlue, // fallback if no colors list
+                BarWidth = 0.6
+            };
+
+            // Add bars with individual colors
+            barSeries.Items.Add(new BarItem { Value = acceptedFaceToFace, Color = OxyColors.Green });
+            barSeries.Items.Add(new BarItem { Value = acceptedOnline, Color = OxyColors.Teal });
+            barSeries.Items.Add(new BarItem { Value = pending, Color = OxyColors.Orange });
+            barSeries.Items.Add(new BarItem { Value = cancelled, Color = OxyColors.Red });
+
+            model.Series.Add(barSeries);
+
+            plotView1.Model = model;
+
+            // Optional: Increase size manually if it looks squished
+            plotView1.Height = 350;
+            plotView1.Width = 800;
+        }
+
+        private void picture_home_Click(object sender, EventArgs e)
+        {
+            FormDoctorMenu home = new FormDoctorMenu(loggedInUsername, loggedInLastName);
+            home.Show();
+            this.Close();
+
+
+        }
+
+        private void panelContainerDoctor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void picture_editprofile_Click(object sender, EventArgs e)
+        {
+            EditDoctorProfile editdoc = new EditDoctorProfile(loggedInUsername, loggedInLastName);
+            editdoc.Show();
+        }
+
+        private void picture_message_Click(object sender, EventArgs e)
+        {
+            EmailtoPatient emailForm = new EmailtoPatient(loggedInUsername, loggedInLastName);
+            emailForm.ShowDialog();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private UpcomingSchedule activeUpcomingSchedule;
 
 
+
         public FormPatientMenu(string firstName, string lastName)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
             // Add to the form
             this.Controls.Add(this.redDot);
+            picture_clear.Visible = false;
 
 
             // Add it to controls
@@ -334,12 +336,13 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 }
             }
         }
-       
+
 
 
         private void picture_clear_Click(object sender, EventArgs e)
         {
             /// Clear all active notifications
+            picture_clear.Enabled = false;
             foreach (var popup in activePopups)
             {
                 popup.Delay = 5000;  // Close each popup
@@ -347,6 +350,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
             // Clear the list of active popups
             activePopups.Clear();
+
         }
         private bool HasUnreadNotifications()
         {
@@ -370,6 +374,25 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void redDot_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void picture_homepatient_Click(object sender, EventArgs e)
+        {
+            FormPatientMenu homepatient = new FormPatientMenu(loggedInUsername, loggedInLastName);
+            homepatient.Show();
+            this.Close();
+        }
+
+        private void picture_editprofile_Click(object sender, EventArgs e)
+        {
+            EditPatientProfile edit = new EditPatientProfile(loggedInUsername, loggedInLastName);
+            edit.Show();
+        }
+
+        private void picture_messagedoc_Click(object sender, EventArgs e)
+        {
+            EmailToDoctor emailFormDOC = new EmailToDoctor(loggedInUsername, loggedInLastName);
+            emailFormDOC.ShowDialog();
         }
     }
 }

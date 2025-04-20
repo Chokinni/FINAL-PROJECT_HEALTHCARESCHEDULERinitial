@@ -21,6 +21,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
         }
+        private DataTable originalData;
 
         private void ViewDoctorAppointment_Load(object sender, EventArgs e)
         {
@@ -113,6 +114,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                             dgv.AutoResizeColumns();
+                            originalData = dt;
                             //table_ViewDoctorAppointment.AutoResizeColumns();
                             //table_ViewDoctorAppointment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -152,11 +154,55 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 // Open the patient profile form with first and last name
                 PatientProfile profileForm = new PatientProfile(firstName, lastName);
                 profileForm.ShowDialog();
-                
+
             }
             else
             {
                 MessageBox.Show("Please select a row first.");
+            }
+        }
+
+        private void txt_searchPatient_TextChanged(object sender, EventArgs e)
+        {
+            SearchByPatientName();
+        }
+
+        private void SearchByPatientName()
+        {
+            if (originalData == null)
+            {
+                MessageBox.Show("Please load appointments first!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string searchText = txt_searchPatient.Text.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // If search text is empty, show all records
+                table_ViewDoctorAppointment.DataSource = originalData;
+                return;
+            }
+
+            // Create a new DataTable with the same schema
+            DataTable filteredData = originalData.Clone();
+
+            // Filter rows based on doctor name
+            foreach (DataRow row in originalData.Rows)
+            {
+                // Adjust "DoctorName" to the actual column name in your table
+                if (row["Patient"].ToString().ToLower().Contains(searchText))
+                {
+                    filteredData.ImportRow(row);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            table_ViewDoctorAppointment.DataSource = filteredData;
+
+            if (filteredData.Rows.Count == 0)
+            {
+                MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

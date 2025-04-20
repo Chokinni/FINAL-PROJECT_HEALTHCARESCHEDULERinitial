@@ -67,12 +67,12 @@
             // 
             // btn_loadschedupcoming
             // 
-            btn_loadschedupcoming.BackColor = Color.LimeGreen;
+            btn_loadschedupcoming.BackColor = Color.SkyBlue;
             btn_loadschedupcoming.FlatAppearance.BorderSize = 0;
             btn_loadschedupcoming.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_loadschedupcoming.Location = new Point(524, 374);
             btn_loadschedupcoming.Name = "btn_loadschedupcoming";
-            btn_loadschedupcoming.Size = new Size(174, 29);
+            btn_loadschedupcoming.Size = new Size(174, 38);
             btn_loadschedupcoming.TabIndex = 22;
             btn_loadschedupcoming.Text = "LOAD SCHEDULE";
             btn_loadschedupcoming.UseVisualStyleBackColor = false;

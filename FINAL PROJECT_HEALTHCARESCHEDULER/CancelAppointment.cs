@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +16,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
     public partial class CancelAppointment : BaseClass
     {
-        
+
         private int selectedUserID; // Store the selected appointment's UserID
         private DateTime selectedAppointmentDate; // Store the selected appointment's date
         public CancelAppointment(string firstName, string lastName)
@@ -24,6 +26,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             loggedInLastName = lastName;
         }
 
+        private DataTable originalData;
         private void btn_cancel_Click(object sender, EventArgs e)
         {
             // Step 1: Check if a row is selected in the DataGridView
@@ -39,6 +42,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             // Step 3: Retrieve the UserID and AppointmentDate from the selected row
             selectedUserID = Convert.ToInt32(selectedRow.Cells["UserID"].Value);
             selectedAppointmentDate = Convert.ToDateTime(selectedRow.Cells["AppointmentDate"].Value);
+            string doctorName = selectedRow.Cells["Doctor"].Value?.ToString();
             string patientName = selectedRow.Cells["Patient"].Value?.ToString();
             int appointmentID = Convert.ToInt32(selectedRow.Cells["AppointmentID"].Value);
             // Step 4: Update the status to "Cancelled" in the database
@@ -47,6 +51,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 try
                 {
                     con.Open();
+                    string doctorEmail = GetDoctorEmail(doctorName, con);
                     string updateQuery = @"
                         UPDATE Patientsschedule 
                         SET Status = @Status, DoctorNotification = False
@@ -61,6 +66,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            // Send email notification to doctor
+                            if (!string.IsNullOrEmpty(doctorEmail))
+                            {
+                                SendCancellationEmail(doctorEmail, doctorName, patientName, selectedAppointmentDate);
+                            }
                             PopupNotifier popup = new PopupNotifier();
                             popup.TitleText = "Appointment Cancelled";
                             popup.ContentText = $"{patientName} has cancelled their appointment on {selectedAppointmentDate:MM/dd/yyyy hh:mm tt}.";
@@ -85,6 +95,127 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 }
             }
 
+        }
+
+        // Add these helper methods to your class
+        private string GetDoctorEmail(string doctorName, OleDbConnection con)
+        {
+            try
+            {
+                string[] names = doctorName.Split(' ');
+                if (names.Length < 2) return null;
+
+                string query = "SELECT EmailAddress FROM USERS WHERE [FirstName] = @FirstName AND [LastName] = @LastName AND [Role] = 'Doctor'";
+                using (OleDbCommand cmd = new OleDbCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@FirstName", names[0]);
+                    cmd.Parameters.AddWithValue("@LastName", names[1]);
+
+                    object result = cmd.ExecuteScalar();
+                    return result?.ToString();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        private void SendCancellationEmail(string doctorEmail, string doctorName, string patientName, DateTime appointmentDate)
+        {
+            try
+            {
+                string senderEmail = "migel24asid@gmail.com";
+                string senderAppPassword = "lcvl rhgt pqki kxbk";
+
+                string subject = $"Appointment Cancellation: {patientName} - {appointmentDate.ToString("MMMM d, yyyy")}";
+
+                string body = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        .header {{
+            background-color: #d9534f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }}
+        .content {{
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-top: none;
+        }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+        }}
+        .appointment-details {{
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin: 15px 0;
+        }}
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <h2>Appointment Cancellation Notice</h2>
+    </div>
+    
+    <div class='content'>
+        <p>Dear Dr. {doctorName},</p>
+        
+        <p>We regret to inform you that your patient <strong>{patientName}</strong> has cancelled their upcoming appointment.</p>
+        
+        <div class='appointment-details'>
+            <h3>Cancelled Appointment Details</h3>
+            <p><strong>Original Date:</strong> {appointmentDate.ToString("dddd, MMMM d, yyyy")}</p>
+            <p><strong>Original Time:</strong> {appointmentDate.ToString("h:mm tt")}</p>
+        </div>
+        
+        <p>This time slot is now available for other patients. Please log in to your dashboard to view your updated schedule.</p>
+        
+        <p>Best regards,</p>
+        <p>The Hospital Scheduler Team</p>
+    </div>
+    
+    <div class='footer'>
+        <p>This is an automated notification. Please do not reply to this email.</p>
+        <p>&copy; {DateTime.Now.Year} Hospital Scheduler System</p>
+    </div>
+</body>
+</html>";
+
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(senderEmail, "Hospital Scheduler");
+                mail.To.Add(doctorEmail);
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.Credentials = new NetworkCredential(senderEmail, senderAppPassword);
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending cancellation email: " + ex.Message);
+                // Consider logging this error for administrative review
+            }
         }
 
         private void datetime_sched_ValueChanged(object sender, EventArgs e)
@@ -129,6 +260,36 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
                                 // Step 4: Bind the DataTable to your table control (e.g., DataGridView)
                                 table_CancelAppointment.DataSource = dt;
+                                if (table_CancelAppointment.Columns.Contains("DoctorNotification"))
+                                    table_CancelAppointment.Columns["DoctorNotification"].Visible = false;
+
+                                if (table_CancelAppointment.Columns.Contains("IsUpdated"))
+                                    table_CancelAppointment.Columns["IsUpdated"].Visible = false;
+                                var dgv = table_CancelAppointment;
+
+                                dgv.EnableHeadersVisualStyles = false;
+                                dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SkyBlue;
+                                dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                                dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                                dgv.ColumnHeadersHeight = 35;
+
+                                dgv.DefaultCellStyle.BackColor = Color.White;
+                                dgv.DefaultCellStyle.ForeColor = Color.Black;
+                                dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                                dgv.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+                                dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+                                dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+
+                                dgv.RowTemplate.Height = 30;
+                                dgv.GridColor = Color.LightGray;
+
+                                dgv.BorderStyle = BorderStyle.Fixed3D;
+                                dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                                dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                                dgv.AutoResizeColumns();
+                                originalData = dt;
 
                                 // Optional: Display a success message
                                 if (dt.Rows.Count > 0)
@@ -246,6 +407,49 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 }
             }
         }
-        
+
+        private void txt_searchDoctor_TextChanged(object sender, EventArgs e)
+        {
+            SearchByDoctorName();
+        }
+
+        private void SearchByDoctorName()
+        {
+            if (originalData == null)
+            {
+                MessageBox.Show("Please load appointments first!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string searchText = txt_searchDoctor.Text.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // If search text is empty, show all records
+                table_CancelAppointment.DataSource = originalData;
+                return;
+            }
+
+            // Create a new DataTable with the same schema
+            DataTable filteredData = originalData.Clone();
+
+            // Filter rows based on doctor name
+            foreach (DataRow row in originalData.Rows)
+            {
+                // Adjust "DoctorName" to the actual column name in your table
+                if (row["Doctor"].ToString().ToLower().Contains(searchText))
+                {
+                    filteredData.ImportRow(row);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            table_CancelAppointment.DataSource = filteredData;
+
+            if (filteredData.Rows.Count == 0)
+            {
+                MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }

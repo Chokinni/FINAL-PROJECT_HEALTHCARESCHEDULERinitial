@@ -73,6 +73,27 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 {
                     con.Open();
                     string appointmentType = RBTN_facetoface.Checked ? "Face to Face" : "Online";
+                    if (cbx_specialization.SelectedItem == null || cbx_doctor.SelectedItem == null)
+                    {
+                        MessageBox.Show("Please select a specialization and a doctor.");
+                        return;
+                    }
+
+                    if (datetime_selectapp.Value <= DateTime.Now)
+                    {
+                        MessageBox.Show("Please select a future date and time for the appointment.");
+                        return;
+                    }
+                    if (!RBTN_facetoface.Checked && !RBTN_Online.Checked)
+                    {
+                        MessageBox.Show("Please select an appointment type: Face to Face or Online.", "Missing Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (datetime_selectapp.Value.Year < 2025 || datetime_selectapp.Value.Year > 2026)
+                    {
+                        MessageBox.Show("Please select a date within the years 2025 to 2026.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
                     // Step 1: Retrieve the UserID of the logged-in user
                     string userQuery = "SELECT ID FROM USERS WHERE [FirstName] = @FirstName AND [LastName] = @LastName";

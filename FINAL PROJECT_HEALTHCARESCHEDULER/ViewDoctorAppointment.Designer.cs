@@ -34,6 +34,8 @@
             btn_loadschedforpatients = new Button();
             strip_viewappointment = new ContextMenuStrip(components);
             viewPatientProfileToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            txt_searchPatient = new TextBox();
             ((System.ComponentModel.ISupportInitialize)table_ViewDoctorAppointment).BeginInit();
             strip_viewappointment.SuspendLayout();
             SuspendLayout();
@@ -41,7 +43,7 @@
             // lbl_Appointment
             // 
             lbl_Appointment.AutoSize = true;
-            lbl_Appointment.Location = new Point(73, 484);
+            lbl_Appointment.Location = new Point(75, 505);
             lbl_Appointment.Name = "lbl_Appointment";
             lbl_Appointment.Size = new Size(237, 20);
             lbl_Appointment.TabIndex = 18;
@@ -50,7 +52,7 @@
             // table_ViewDoctorAppointment
             // 
             table_ViewDoctorAppointment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            table_ViewDoctorAppointment.Location = new Point(39, 62);
+            table_ViewDoctorAppointment.Location = new Point(41, 83);
             table_ViewDoctorAppointment.Name = "table_ViewDoctorAppointment";
             table_ViewDoctorAppointment.RowHeadersWidth = 51;
             table_ViewDoctorAppointment.Size = new Size(754, 393);
@@ -58,13 +60,13 @@
             // 
             // btn_loadschedforpatients
             // 
-            btn_loadschedforpatients.BackColor = Color.LimeGreen;
+            btn_loadschedforpatients.BackColor = Color.SkyBlue;
             btn_loadschedforpatients.FlatAppearance.BorderSize = 0;
             btn_loadschedforpatients.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_loadschedforpatients.Location = new Point(389, 484);
+            btn_loadschedforpatients.Location = new Point(391, 505);
             btn_loadschedforpatients.Margin = new Padding(4, 3, 4, 3);
             btn_loadschedforpatients.Name = "btn_loadschedforpatients";
-            btn_loadschedforpatients.Size = new Size(197, 26);
+            btn_loadschedforpatients.Size = new Size(197, 35);
             btn_loadschedforpatients.TabIndex = 26;
             btn_loadschedforpatients.Text = "LOAD SCHEDULE";
             btn_loadschedforpatients.UseVisualStyleBackColor = false;
@@ -75,20 +77,41 @@
             strip_viewappointment.ImageScalingSize = new Size(20, 20);
             strip_viewappointment.Items.AddRange(new ToolStripItem[] { viewPatientProfileToolStripMenuItem });
             strip_viewappointment.Name = "strip_viewappointment";
-            strip_viewappointment.Size = new Size(211, 56);
+            strip_viewappointment.Size = new Size(207, 28);
             strip_viewappointment.Opening += strip_viewappointment_Opening;
             // 
             // viewPatientProfileToolStripMenuItem
             // 
             viewPatientProfileToolStripMenuItem.Name = "viewPatientProfileToolStripMenuItem";
-            viewPatientProfileToolStripMenuItem.Size = new Size(210, 24);
+            viewPatientProfileToolStripMenuItem.Size = new Size(206, 24);
             viewPatientProfileToolStripMenuItem.Text = "View Patient Profile";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(65, 44);
+            label1.Name = "label1";
+            label1.Size = new Size(123, 18);
+            label1.TabIndex = 29;
+            label1.Text = "Search Patient:";
+            // 
+            // txt_searchPatient
+            // 
+            txt_searchPatient.Location = new Point(207, 40);
+            txt_searchPatient.Multiline = true;
+            txt_searchPatient.Name = "txt_searchPatient";
+            txt_searchPatient.Size = new Size(177, 27);
+            txt_searchPatient.TabIndex = 28;
+            txt_searchPatient.TextChanged += txt_searchPatient_TextChanged;
             // 
             // ViewDoctorAppointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ContextMenuStrip = strip_viewappointment;
+            Controls.Add(label1);
+            Controls.Add(txt_searchPatient);
             Controls.Add(btn_loadschedforpatients);
             Controls.Add(lbl_Appointment);
             Controls.Add(table_ViewDoctorAppointment);
@@ -108,5 +131,7 @@
         private Button btn_loadschedforpatients;
         private ContextMenuStrip strip_viewappointment;
         private ToolStripMenuItem viewPatientProfileToolStripMenuItem;
+        private Label label1;
+        private TextBox txt_searchPatient;
     }
 }

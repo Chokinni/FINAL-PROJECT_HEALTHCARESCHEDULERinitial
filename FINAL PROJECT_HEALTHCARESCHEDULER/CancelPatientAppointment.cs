@@ -26,6 +26,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
         }
+        private DataTable originalData;
 
         private void datetime_cancelPatientAppointment_ValueChanged(object sender, EventArgs e)
         {
@@ -86,6 +87,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                             dgv.AutoResizeColumns();
+                            originalData = dt;
                             // Optional: Display a success message
                             if (dt.Rows.Count > 0)
                             {
@@ -522,7 +524,14 @@ string senderPassword)
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Cancelled appointment deleted successfully.");
+                           // DataRow[] rowsToDelete = originalData.Select($"AppointmentID = {appointmentID}");
+                           // if (rowsToDelete.Length > 0)
+                           // {
+                           //     originalData.Rows.Remove(rowsToDelete[0]);
+                           //     originalData.AcceptChanges(); // This is important to commit the deletion
+                            //}
                             table_CancelpatientAppointment.Rows.RemoveAt(table_CancelpatientAppointment.CurrentRow.Index); // Remove the row from the DataGridView
+                            btn_loadschedforcancel_Click(sender, e);
                         }
                         else
                         {
@@ -540,7 +549,7 @@ string senderPassword)
                 }
             }
         }
-        
+
         private void NotifyPatient(string patientName)
         {
             // Create new popup and show it immediately
@@ -582,7 +591,48 @@ string senderPassword)
                 }
             }
         }
+        private void SearchByPatientName()
+        {
+            if (originalData == null)
+            {
+                MessageBox.Show("Please load appointments first!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            string searchText = txt_searchPatient.Text.Trim().ToLower();
 
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // If search text is empty, show all records
+                table_CancelpatientAppointment.DataSource = originalData;
+                return;
+            }
+
+            // Create a new DataTable with the same schema
+            DataTable filteredData = originalData.Clone();
+
+            // Filter rows based on doctor name
+            foreach (DataRow row in originalData.Rows)
+            {
+                // Adjust "DoctorName" to the actual column name in your table
+               if (row["Patient"].ToString().ToLower().Contains(searchText))
+                {
+                    filteredData.ImportRow(row);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            table_CancelpatientAppointment.DataSource = filteredData;
+
+            if (filteredData.Rows.Count == 0)
+            {
+                MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void txt_searchPatient_TextChanged(object sender, EventArgs e)
+        {
+            SearchByPatientName();
+        }
     }
 }

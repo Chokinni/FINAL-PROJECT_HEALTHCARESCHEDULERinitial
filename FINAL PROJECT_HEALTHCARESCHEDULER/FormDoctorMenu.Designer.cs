@@ -33,6 +33,7 @@
             label3 = new Label();
             lbl_exitdoctor = new Label();
             panel2 = new Panel();
+            picture_home = new PictureBox();
             btn_logoutDoc = new Button();
             btn_createmeeting = new Button();
             btn_upcomingsched = new Button();
@@ -42,12 +43,24 @@
             lblWelcome = new Label();
             pictureBox1 = new PictureBox();
             panelContainerDoctor = new Panel();
+            picture_message = new PictureBox();
+            picture_editprofile = new PictureBox();
+            lbl_welcome = new Label();
+            lbl_year = new Label();
+            lbl_month = new Label();
+            plotView1 = new OxyPlot.WindowsForms.PlotView();
+            btnLoadChart = new Button();
+            cmbYear = new ComboBox();
+            cmbMonth = new ComboBox();
             redDot = new PictureBox();
             picNotificationdoc = new PictureBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_home).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelContainerDoctor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_message).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picture_editprofile).BeginInit();
             ((System.ComponentModel.ISupportInitialize)redDot).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationdoc).BeginInit();
             SuspendLayout();
@@ -91,6 +104,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 77, 83);
+            panel2.Controls.Add(picture_home);
             panel2.Controls.Add(btn_logoutDoc);
             panel2.Controls.Add(btn_createmeeting);
             panel2.Controls.Add(btn_upcomingsched);
@@ -106,12 +120,23 @@
             panel2.Size = new Size(250, 631);
             panel2.TabIndex = 1;
             // 
+            // picture_home
+            // 
+            picture_home.BackgroundImage = Properties.Resources.home;
+            picture_home.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_home.Location = new Point(100, 581);
+            picture_home.Name = "picture_home";
+            picture_home.Size = new Size(45, 36);
+            picture_home.TabIndex = 9;
+            picture_home.TabStop = false;
+            picture_home.Click += picture_home_Click;
+            // 
             // btn_logoutDoc
             // 
             btn_logoutDoc.FlatAppearance.BorderSize = 0;
             btn_logoutDoc.FlatStyle = FlatStyle.Flat;
             btn_logoutDoc.ForeColor = Color.White;
-            btn_logoutDoc.Location = new Point(21, 543);
+            btn_logoutDoc.Location = new Point(21, 514);
             btn_logoutDoc.Name = "btn_logoutDoc";
             btn_logoutDoc.Size = new Size(208, 50);
             btn_logoutDoc.TabIndex = 8;
@@ -209,6 +234,15 @@
             // panelContainerDoctor
             // 
             panelContainerDoctor.BackColor = Color.MistyRose;
+            panelContainerDoctor.Controls.Add(picture_message);
+            panelContainerDoctor.Controls.Add(picture_editprofile);
+            panelContainerDoctor.Controls.Add(lbl_welcome);
+            panelContainerDoctor.Controls.Add(lbl_year);
+            panelContainerDoctor.Controls.Add(lbl_month);
+            panelContainerDoctor.Controls.Add(plotView1);
+            panelContainerDoctor.Controls.Add(btnLoadChart);
+            panelContainerDoctor.Controls.Add(cmbYear);
+            panelContainerDoctor.Controls.Add(cmbMonth);
             panelContainerDoctor.Controls.Add(redDot);
             panelContainerDoctor.Controls.Add(picNotificationdoc);
             panelContainerDoctor.Dock = DockStyle.Fill;
@@ -216,6 +250,102 @@
             panelContainerDoctor.Name = "panelContainerDoctor";
             panelContainerDoctor.Size = new Size(855, 631);
             panelContainerDoctor.TabIndex = 5;
+            panelContainerDoctor.Paint += panelContainerDoctor_Paint;
+            // 
+            // picture_message
+            // 
+            picture_message.BackgroundImage = Properties.Resources._4202011_email_gmail_mail_logo_social_icon;
+            picture_message.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_message.Location = new Point(643, 13);
+            picture_message.Name = "picture_message";
+            picture_message.Size = new Size(39, 36);
+            picture_message.TabIndex = 15;
+            picture_message.TabStop = false;
+            picture_message.Click += picture_message_Click;
+            // 
+            // picture_editprofile
+            // 
+            picture_editprofile.BackgroundImage = Properties.Resources.pen;
+            picture_editprofile.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_editprofile.Location = new Point(703, 13);
+            picture_editprofile.Name = "picture_editprofile";
+            picture_editprofile.Size = new Size(32, 36);
+            picture_editprofile.TabIndex = 11;
+            picture_editprofile.TabStop = false;
+            picture_editprofile.Click += picture_editprofile_Click;
+            // 
+            // lbl_welcome
+            // 
+            lbl_welcome.AutoSize = true;
+            lbl_welcome.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_welcome.Location = new Point(6, 6);
+            lbl_welcome.Name = "lbl_welcome";
+            lbl_welcome.Size = new Size(142, 18);
+            lbl_welcome.TabIndex = 14;
+            lbl_welcome.Text = "VIEW ANALYTICS";
+            // 
+            // lbl_year
+            // 
+            lbl_year.AutoSize = true;
+            lbl_year.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_year.ForeColor = Color.Teal;
+            lbl_year.Location = new Point(21, 112);
+            lbl_year.Name = "lbl_year";
+            lbl_year.Size = new Size(104, 20);
+            lbl_year.TabIndex = 13;
+            lbl_year.Text = "Enter Year:";
+            // 
+            // lbl_month
+            // 
+            lbl_month.AutoSize = true;
+            lbl_month.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_month.ForeColor = Color.Teal;
+            lbl_month.Location = new Point(21, 58);
+            lbl_month.Name = "lbl_month";
+            lbl_month.Size = new Size(117, 20);
+            lbl_month.TabIndex = 12;
+            lbl_month.Text = "Enter Month:";
+            // 
+            // plotView1
+            // 
+            plotView1.Location = new Point(21, 158);
+            plotView1.Name = "plotView1";
+            plotView1.PanCursor = Cursors.Hand;
+            plotView1.Size = new Size(809, 310);
+            plotView1.TabIndex = 11;
+            plotView1.Text = "plotView1";
+            plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
+            plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
+            plotView1.ZoomVerticalCursor = Cursors.SizeNS;
+            // 
+            // btnLoadChart
+            // 
+            btnLoadChart.BackColor = Color.Gold;
+            btnLoadChart.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLoadChart.ForeColor = Color.Crimson;
+            btnLoadChart.Location = new Point(38, 535);
+            btnLoadChart.Name = "btnLoadChart";
+            btnLoadChart.Size = new Size(131, 29);
+            btnLoadChart.TabIndex = 10;
+            btnLoadChart.Text = "View Graph";
+            btnLoadChart.UseVisualStyleBackColor = false;
+            btnLoadChart.Click += btnLoadChart_Click;
+            // 
+            // cmbYear
+            // 
+            cmbYear.FormattingEnabled = true;
+            cmbYear.Location = new Point(150, 109);
+            cmbYear.Name = "cmbYear";
+            cmbYear.Size = new Size(151, 28);
+            cmbYear.TabIndex = 9;
+            // 
+            // cmbMonth
+            // 
+            cmbMonth.FormattingEnabled = true;
+            cmbMonth.Location = new Point(150, 52);
+            cmbMonth.Name = "cmbMonth";
+            cmbMonth.Size = new Size(151, 28);
+            cmbMonth.TabIndex = 8;
             // 
             // redDot
             // 
@@ -254,8 +384,12 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_home).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelContainerDoctor.ResumeLayout(false);
+            panelContainerDoctor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_message).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picture_editprofile).EndInit();
             ((System.ComponentModel.ISupportInitialize)redDot).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationdoc).EndInit();
             ResumeLayout(false);
@@ -278,5 +412,15 @@
         private Button btn_logoutDoc;
         private PictureBox picNotificationdoc;
         private PictureBox redDot;
+        private ComboBox cmbYear;
+        private ComboBox cmbMonth;
+        private Button btnLoadChart;
+        private OxyPlot.WindowsForms.PlotView plotView1;
+        private PictureBox picture_home;
+        private Label lbl_year;
+        private Label lbl_month;
+        private Label lbl_welcome;
+        private PictureBox picture_editprofile;
+        private PictureBox picture_message;
     }
 }

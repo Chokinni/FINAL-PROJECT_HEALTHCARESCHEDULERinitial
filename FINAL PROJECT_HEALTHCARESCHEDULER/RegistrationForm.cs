@@ -58,8 +58,10 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
             string relationship = tbx_relationship.Text.Trim();
 
-            string emercontact = tbx_contactemer.Text.Trim();   
-            string apppassword= tbx_apppass.Text.Trim();    
+            string emercontact = tbx_contactemer.Text.Trim();
+            string apppassword = tbx_apppass.Text.Trim();
+            string gender = tbx_Gender.Text.Trim();
+            string birthdate = datetime_birthdate.Value.ToString("yyyy-MM-dd");
 
 
             //string password = tbx_regpassword.Text.Trim();
@@ -76,9 +78,18 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(phonenum) || string.IsNullOrEmpty(emailadd) ||
                 string.IsNullOrEmpty(homeadd) || string.IsNullOrEmpty(Social) || string.IsNullOrEmpty(contactper)
-                || string.IsNullOrEmpty(relationship) || string.IsNullOrEmpty(emercontact) || string.IsNullOrEmpty(apppassword))
+                || string.IsNullOrEmpty(relationship) || string.IsNullOrEmpty(emercontact) || string.IsNullOrEmpty(apppassword) ||
+        string.IsNullOrEmpty(gender))
             {
                 MessageBox.Show("Please fill in all required fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            DateTime minDate = new DateTime(1900, 1, 1);
+            DateTime maxDate = DateTime.Today;
+
+            if (datetime_birthdate.Value <= minDate || datetime_birthdate.Value > maxDate)
+            {
+                MessageBox.Show("Please enter a valid birth date!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -96,6 +107,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     return;
                 }
             }
+
 
 
             string doctorPattern = @"^D\d{2}-\d{4}-\d{3}$";
@@ -120,8 +132,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 try
                 {
                     con.Open();
-                    string query = "INSERT INTO Users (Firstname, Lastname, Username, [Password], Role, Specialty, PhoneNumber, EmailAddress, MedicalLicenseNumber, YearsofExperience, BoardCertified, HomeAddress, MedicalSchool, SocialMedia, ProfilePicture, ContactPerson, Relationship, EmergencyNo, AppPassword) " +
-                                   "VALUES (@Firstname, @Lastname, @Username, @Password, @Role, @Specialty, @PhoneNumber, @EmailAddress, @MedicalLicenseNumber, @YearsofExperience, @BoardCertified, @HomeAddress, @MedicalSchool, @SocialMedia, @imgData, @ContactPerson, @Relationship, @EmergencyNo,@AppPassword)";
+                    string query = "INSERT INTO Users (FirstName, LastName, Username, [Password], Role, Specialty, PhoneNumber, EmailAddress, MedicalLicenseNumber, YearsofExperience, BoardCertified, HomeAddress, MedicalSchool, SocialMedia, ProfilePicture, ContactPerson, Relationship, EmergencyNo, AppPassword, Gender, BirthDate) " +
+                                   "VALUES (@FirstName, @LastName, @Username, @Password, @Role, @Specialty, @PhoneNumber, @EmailAddress, @MedicalLicenseNumber, @YearsofExperience, @BoardCertified, @HomeAddress, @MedicalSchool, @SocialMedia, @imgData, @ContactPerson, @Relationship, @EmergencyNo,@AppPassword,@Gender,@BirthDate)";
                     OleDbCommand cmd = new OleDbCommand(query, con);
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
@@ -150,6 +162,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     cmd.Parameters.AddWithValue("@Relationship", relationship);
                     cmd.Parameters.AddWithValue("@EmergencyNo", emercontact);
                     cmd.Parameters.AddWithValue("@AppPassword", apppassword);
+                    cmd.Parameters.AddWithValue("@Gender", gender);
+                    cmd.Parameters.AddWithValue("@BirthDate", datetime_birthdate.Value.ToString("yyyy-MM-dd"));
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -201,7 +215,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 tbx_experience.Text = "";
                 tbx_certified.Text = "";
                 tbx_medschool.Text = "";
-                
+
                 tbx_emercon.Text = "N/A";
                 tbx_contactemer.Text = "N/A";
                 tbx_relationship.Text = "N/A";
@@ -284,12 +298,12 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void RegistrationForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void picture_profile_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void picture_profile_Paint(object sender, PaintEventArgs e)
@@ -308,6 +322,15 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 e.Graphics.DrawRectangle(borderPen, rect);
             }
 
+        }
+
+        private void datetime_birthdate_ValueChanged(object sender, EventArgs e)
+        {
+            string selectedDateTime = datetime_birthdate.Value.ToString("yyyy-MM-dd");
+
+            datetime_birthdate.Format = DateTimePickerFormat.Custom;
+            datetime_birthdate.CustomFormat = "yyyy-MM-dd"; // Date + Time (12-hour format)
+            datetime_birthdate.ShowUpDown = true; // Removes dropdown calendar
         }
     }
 

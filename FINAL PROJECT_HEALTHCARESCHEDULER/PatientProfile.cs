@@ -27,56 +27,91 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         private void PatientProfile_Load(object sender, EventArgs e)
         {
-
-
-
-
-
-            using (OleDbConnection conn = BaseClass.GetConnection())
+            try
             {
-                conn.Open();
-                string query = "SELECT * FROM USERS WHERE [Role]='PATIENT' AND [FirstName]=@FirstName AND [LastName]=@LastName";
-                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                using (OleDbConnection conn = BaseClass.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
-                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+
+                    // Flexible query that handles both single-name and full-name cases
+                    string query = @"SELECT * FROM USERS 
+                           WHERE [Role]='PATIENT' 
+                           AND (
+                               (TRIM([FirstName]) = TRIM(@FirstName) AND TRIM([LastName]) = TRIM(@LastName))
+                               OR
+                               (TRIM([FirstName]) = TRIM(@FullName) AND [LastName] IS NULL)
+                               OR
+                               (TRIM([FirstName]) + ' ' + TRIM([LastName]) = TRIM(@FullName))
+                           )";
+
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
                     {
-                        if (reader.Read())
+                        cmd.Parameters.AddWithValue("@FirstName", firstName?.Trim() ?? "");
+                        cmd.Parameters.AddWithValue("@LastName", lastName?.Trim() ?? "");
+                        cmd.Parameters.AddWithValue("@FullName", $"{firstName?.Trim()} {lastName?.Trim()}".Trim());
+
+                        using (OleDbDataReader reader = cmd.ExecuteReader())
                         {
-                            lbl_name.Text = "Fullname: " + reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
-
-                            lbl_email.Text = "Email: " + reader["EmailAddress"].ToString();
-
-                            lbl_homeadd.Text = "Home Address: " + reader["HomeAddress"].ToString();
-
-                            lbl_phone.Text = "Phone Number: " + reader["PhoneNumber"].ToString();
-                            lbl_socials.Text = "Social Media: " + reader["SocialMedia"].ToString();
-                            lbl_contactname.Text = "Contact Person Name: " + reader["ContactPerson"].ToString();
-                            lbl_relationship.Text = "Relationship: " + reader["Relationship"].ToString();
-                            lbl_contactemergency.Text = "Emergency Contact: " + reader["EmergencyNo"].ToString();
-                            if (reader["ProfilePicture"] != DBNull.Value)
+                            if (reader.Read())
                             {
-                                byte[] imageBytes = (byte[])reader["ProfilePicture"];
-                                using (MemoryStream ms = new MemoryStream(imageBytes))
+                                // Display patient information
+                                lbl_name.Text = "Fullname: " + reader["FirstName"].ToString() + " " +
+                                              (reader["LastName"] != DBNull.Value ? reader["LastName"].ToString() : "");
+
+                                lbl_email.Text = "Email: " + reader["EmailAddress"].ToString();
+                                lbl_homeadd.Text = "Home Address: " + reader["HomeAddress"].ToString();
+                                lbl_phone.Text = "Phone Number: " + reader["PhoneNumber"].ToString();
+                                lbl_socials.Text = "Social Media: " + reader["SocialMedia"].ToString();
+                                lbl_contactname.Text = "Contact Person Name: " + reader["ContactPerson"].ToString();
+                                lbl_relationship.Text = "Relationship: " + reader["Relationship"].ToString();
+                                lbl_contactemergency.Text = "Emergency Contact: " + reader["EmergencyNo"].ToString();
+
+                                // Profile picture
+                                if (reader["ProfilePicture"] != DBNull.Value)
                                 {
-                                    picture_displaypatient.Image = Image.FromStream(ms);
-                                    picture_displaypatient.SizeMode = PictureBoxSizeMode.Zoom; // Optional: makes image fit nicely
+                                    byte[] imageBytes = (byte[])reader["ProfilePicture"];
+                                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                                    {
+                                        picture_displaypatient.Image = Image.FromStream(ms);
+                                        picture_displaypatient.SizeMode = PictureBoxSizeMode.Zoom;
+                                    }
                                 }
+                                else
+                                {
+                                    picture_displaypatient.Image = null;
+                                }
+
+                                // Birth date
+                                if (reader["BirthDate"] != DBNull.Value)
+                                {
+                                    DateTime birthDate = Convert.ToDateTime(reader["BirthDate"]);
+                                    lbl_birthdate.Text = "Birth Date: " + birthDate.ToString("yyyy-MM-dd");
+                                }
+                                else
+                                {
+                                    lbl_birthdate.Text = "Birth Date: N/A";
+                                }
+
+                                // Gender
+                                lbl_gender.Text = reader["Gender"] != DBNull.Value ?
+                                    $"Gender: {reader["Gender"].ToString().Trim()}" : "Gender: N/A";
                             }
                             else
                             {
-                                // Optional: Set a default image or clear the PictureBox
-                                picture_displaypatient.Image = null;
+                                MessageBox.Show($"Patient not found: {firstName} {lastName}");
+                                this.Close();
                             }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Patientprofile not found.");
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading patient profile: {ex.Message}");
+                this.Close();
+            }
+
+
         }
 
         private void lbl_exitdoctor_Click(object sender, EventArgs e)

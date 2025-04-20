@@ -41,6 +41,8 @@
             picture_displaypatient = new PictureBox();
             lbl_info = new Label();
             lbl_exitdoctor = new Label();
+            lbl_gender = new Label();
+            lbl_birthdate = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_displaypatient).BeginInit();
             SuspendLayout();
@@ -123,7 +125,7 @@
             lbl_homeadd.BackColor = Color.Transparent;
             lbl_homeadd.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
             lbl_homeadd.ForeColor = Color.Yellow;
-            lbl_homeadd.Location = new Point(586, 122);
+            lbl_homeadd.Location = new Point(586, 134);
             lbl_homeadd.Name = "lbl_homeadd";
             lbl_homeadd.Size = new Size(142, 20);
             lbl_homeadd.TabIndex = 8;
@@ -197,6 +199,30 @@
             lbl_exitdoctor.Text = "X";
             lbl_exitdoctor.Click += lbl_exitdoctor_Click;
             // 
+            // lbl_gender
+            // 
+            lbl_gender.AutoSize = true;
+            lbl_gender.BackColor = Color.Transparent;
+            lbl_gender.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
+            lbl_gender.ForeColor = Color.Yellow;
+            lbl_gender.Location = new Point(586, 191);
+            lbl_gender.Name = "lbl_gender";
+            lbl_gender.Size = new Size(78, 20);
+            lbl_gender.TabIndex = 19;
+            lbl_gender.Text = "Gender:";
+            // 
+            // lbl_birthdate
+            // 
+            lbl_birthdate.AutoSize = true;
+            lbl_birthdate.BackColor = Color.Transparent;
+            lbl_birthdate.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
+            lbl_birthdate.ForeColor = Color.Yellow;
+            lbl_birthdate.Location = new Point(586, 245);
+            lbl_birthdate.Name = "lbl_birthdate";
+            lbl_birthdate.Size = new Size(108, 20);
+            lbl_birthdate.TabIndex = 20;
+            lbl_birthdate.Text = "Birth Date:";
+            // 
             // PatientProfile
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -204,6 +230,8 @@
             BackgroundImage = Properties.Resources.blue_bg;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(994, 627);
+            Controls.Add(lbl_birthdate);
+            Controls.Add(lbl_gender);
             Controls.Add(lbl_exitdoctor);
             Controls.Add(lbl_info);
             Controls.Add(lbl_homeadd);
@@ -241,5 +269,7 @@
         private Label lbl_contactname;
         private Label lbl_info;
         private Label lbl_exitdoctor;
+        private Label lbl_gender;
+        private Label lbl_birthdate;
     }
 }

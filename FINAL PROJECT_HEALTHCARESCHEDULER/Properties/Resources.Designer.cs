@@ -63,6 +63,16 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _4202011_email_gmail_mail_logo_social_icon {
+            get {
+                object obj = ResourceManager.GetObject("4202011_email_gmail_mail_logo_social_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _9004846_tick_check_mark_accept_icon {
             get {
                 object obj = ResourceManager.GetObject("9004846_tick_check_mark_accept_icon", resourceCulture);
@@ -73,9 +83,29 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap attach {
+            get {
+                object obj = ResourceManager.GetObject("attach", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bell {
             get {
                 object obj = ResourceManager.GetObject("bell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Blue_and_Pink_Simple_Contact_Us_Website_Section_UI_Desktop_Prototype {
+            get {
+                object obj = ResourceManager.GetObject("Blue and Pink Simple Contact Us Website Section UI Desktop Prototype", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,6 +153,26 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap emaill {
+            get {
+                object obj = ResourceManager.GetObject("emaill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap home {
+            get {
+                object obj = ResourceManager.GetObject("home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap patient {
             get {
                 object obj = ResourceManager.GetObject("patient", resourceCulture);
@@ -143,9 +193,29 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pen {
+            get {
+                object obj = ResourceManager.GetObject("pen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pngwing_com {
             get {
                 object obj = ResourceManager.GetObject("pngwing.com", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap welcome {
+            get {
+                object obj = ResourceManager.GetObject("welcome", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

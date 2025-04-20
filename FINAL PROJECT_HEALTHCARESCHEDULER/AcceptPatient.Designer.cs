@@ -34,6 +34,8 @@
             btn_loadscheddoc = new Button();
             Patient_profilestrip = new ContextMenuStrip(components);
             viewPatientProfileToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            txt_searchPatient = new TextBox();
             ((System.ComponentModel.ISupportInitialize)table_AcceptAppointment).BeginInit();
             Patient_profilestrip.SuspendLayout();
             SuspendLayout();
@@ -54,7 +56,7 @@
             // table_AcceptAppointment
             // 
             table_AcceptAppointment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            table_AcceptAppointment.Location = new Point(55, 58);
+            table_AcceptAppointment.Location = new Point(57, 81);
             table_AcceptAppointment.Name = "table_AcceptAppointment";
             table_AcceptAppointment.RowHeadersWidth = 51;
             table_AcceptAppointment.Size = new Size(754, 393);
@@ -87,11 +89,32 @@
             viewPatientProfileToolStripMenuItem.Size = new Size(206, 24);
             viewPatientProfileToolStripMenuItem.Text = "View Patient Profile";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(86, 38);
+            label1.Name = "label1";
+            label1.Size = new Size(123, 18);
+            label1.TabIndex = 27;
+            label1.Text = "Search Patient:";
+            // 
+            // txt_searchPatient
+            // 
+            txt_searchPatient.Location = new Point(228, 34);
+            txt_searchPatient.Multiline = true;
+            txt_searchPatient.Name = "txt_searchPatient";
+            txt_searchPatient.Size = new Size(177, 27);
+            txt_searchPatient.TabIndex = 26;
+            txt_searchPatient.TextChanged += txt_searchPatient_TextChanged;
+            // 
             // AcceptPatient
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ContextMenuStrip = Patient_profilestrip;
+            Controls.Add(label1);
+            Controls.Add(txt_searchPatient);
             Controls.Add(btn_loadscheddoc);
             Controls.Add(btn_confirm);
             Controls.Add(table_AcceptAppointment);
@@ -100,6 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)table_AcceptAppointment).EndInit();
             Patient_profilestrip.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -109,5 +133,7 @@
         private Button btn_loadscheddoc;
         private ContextMenuStrip Patient_profilestrip;
         private ToolStripMenuItem viewPatientProfileToolStripMenuItem;
+        private Label label1;
+        private TextBox txt_searchPatient;
     }
 }

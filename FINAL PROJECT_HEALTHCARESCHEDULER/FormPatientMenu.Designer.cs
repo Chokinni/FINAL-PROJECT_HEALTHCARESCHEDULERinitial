@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPatientMenu));
             panel2 = new Panel();
+            picture_homepatient = new PictureBox();
             btn_meeting = new Button();
             btn_appointments = new Button();
             btn_logoutpatient = new Button();
@@ -43,21 +44,29 @@
             label3 = new Label();
             lbl_exitpatient = new Label();
             panelContainer = new Panel();
+            picture_editprofile = new PictureBox();
+            pictureBox2 = new PictureBox();
             redDot = new PictureBox();
             picture_clear = new PictureBox();
             picNotificationBell = new PictureBox();
+            picture_messagedoc = new PictureBox();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_homepatient).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             panelContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_editprofile).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)redDot).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picture_clear).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationBell).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).BeginInit();
             SuspendLayout();
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(34, 77, 83);
+            panel2.Controls.Add(picture_homepatient);
             panel2.Controls.Add(btn_meeting);
             panel2.Controls.Add(btn_appointments);
             panel2.Controls.Add(btn_logoutpatient);
@@ -74,12 +83,23 @@
             panel2.Size = new Size(250, 628);
             panel2.TabIndex = 3;
             // 
+            // picture_homepatient
+            // 
+            picture_homepatient.BackgroundImage = Properties.Resources.home;
+            picture_homepatient.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_homepatient.Location = new Point(98, 576);
+            picture_homepatient.Name = "picture_homepatient";
+            picture_homepatient.Size = new Size(51, 40);
+            picture_homepatient.TabIndex = 9;
+            picture_homepatient.TabStop = false;
+            picture_homepatient.Click += picture_homepatient_Click;
+            // 
             // btn_meeting
             // 
             btn_meeting.FlatAppearance.BorderSize = 0;
             btn_meeting.FlatStyle = FlatStyle.Flat;
             btn_meeting.ForeColor = Color.White;
-            btn_meeting.Location = new Point(21, 494);
+            btn_meeting.Location = new Point(21, 485);
             btn_meeting.Name = "btn_meeting";
             btn_meeting.Size = new Size(208, 50);
             btn_meeting.TabIndex = 8;
@@ -105,7 +125,7 @@
             btn_logoutpatient.FlatAppearance.BorderSize = 0;
             btn_logoutpatient.FlatStyle = FlatStyle.Flat;
             btn_logoutpatient.ForeColor = Color.White;
-            btn_logoutpatient.Location = new Point(21, 580);
+            btn_logoutpatient.Location = new Point(21, 541);
             btn_logoutpatient.Name = "btn_logoutpatient";
             btn_logoutpatient.Size = new Size(208, 29);
             btn_logoutpatient.TabIndex = 6;
@@ -227,6 +247,9 @@
             // panelContainer
             // 
             panelContainer.BackColor = Color.MistyRose;
+            panelContainer.Controls.Add(picture_messagedoc);
+            panelContainer.Controls.Add(picture_editprofile);
+            panelContainer.Controls.Add(pictureBox2);
             panelContainer.Controls.Add(redDot);
             panelContainer.Controls.Add(picture_clear);
             panelContainer.Controls.Add(picNotificationBell);
@@ -235,6 +258,27 @@
             panelContainer.Name = "panelContainer";
             panelContainer.Size = new Size(855, 628);
             panelContainer.TabIndex = 4;
+            // 
+            // picture_editprofile
+            // 
+            picture_editprofile.BackgroundImage = Properties.Resources.pen;
+            picture_editprofile.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_editprofile.Location = new Point(698, 13);
+            picture_editprofile.Name = "picture_editprofile";
+            picture_editprofile.Size = new Size(32, 36);
+            picture_editprofile.TabIndex = 10;
+            picture_editprofile.TabStop = false;
+            picture_editprofile.Click += picture_editprofile_Click;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackgroundImage = Properties.Resources.welcome;
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox2.Location = new Point(169, 101);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(490, 443);
+            pictureBox2.TabIndex = 4;
+            pictureBox2.TabStop = false;
             // 
             // redDot
             // 
@@ -269,6 +313,17 @@
             picNotificationBell.TabStop = false;
             picNotificationBell.Click += picNotificationBell_Click;
             // 
+            // picture_messagedoc
+            // 
+            picture_messagedoc.BackgroundImage = Properties.Resources._4202011_email_gmail_mail_logo_social_icon;
+            picture_messagedoc.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_messagedoc.Location = new Point(633, 13);
+            picture_messagedoc.Name = "picture_messagedoc";
+            picture_messagedoc.Size = new Size(39, 36);
+            picture_messagedoc.TabIndex = 16;
+            picture_messagedoc.TabStop = false;
+            picture_messagedoc.Click += picture_messagedoc_Click;
+            // 
             // FormPatientMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -283,13 +338,17 @@
             Text = "FormPatientName";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_homepatient).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panelContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picture_editprofile).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)redDot).EndInit();
             ((System.ComponentModel.ISupportInitialize)picture_clear).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationBell).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).EndInit();
             ResumeLayout(false);
         }
 
@@ -312,5 +371,9 @@
         private PictureBox picNotificationBell;
         private PictureBox picture_clear;
         private PictureBox redDot;
+        private PictureBox pictureBox2;
+        private PictureBox picture_homepatient;
+        private PictureBox picture_editprofile;
+        private PictureBox picture_messagedoc;
     }
 }
