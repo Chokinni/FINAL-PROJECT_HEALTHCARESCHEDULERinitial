@@ -84,6 +84,20 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 MessageBox.Show("Please fill in all required fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (!Regex.IsMatch(emailadd, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Please enter a valid email address (e.g., example@domain.com).", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // ✅ AppPassword format and length validation
+            string trimmedAppPass = apppassword.Replace(" ", ""); // Remove spaces temporarily
+
+            if (trimmedAppPass.Length != 16 || !Regex.IsMatch(apppassword, @"^(\w{4}\s){3}\w{4}$"))
+            {
+                MessageBox.Show("AppPassword must be exactly 16 characters in this format: XXXX XXXX XXXX XXXX", "Invalid AppPassword", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             DateTime minDate = new DateTime(1900, 1, 1);
             DateTime maxDate = DateTime.Today;
 
@@ -132,6 +146,18 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 try
                 {
                     con.Open();
+                    string checkEmailQuery = "SELECT COUNT(*) FROM Users WHERE EmailAddress = ?";
+                    using (OleDbCommand checkEmailCmd = new OleDbCommand(checkEmailQuery, con))
+                    {
+                        checkEmailCmd.Parameters.AddWithValue("?", emailadd);
+                        int emailCount = (int)checkEmailCmd.ExecuteScalar();
+
+                        if (emailCount > 0)
+                        {
+                            MessageBox.Show("This email address is already registered!", "Duplicate Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
                     string query = "INSERT INTO Users (FirstName, LastName, Username, [Password], Role, Specialty, PhoneNumber, EmailAddress, MedicalLicenseNumber, YearsofExperience, BoardCertified, HomeAddress, MedicalSchool, SocialMedia, ProfilePicture, ContactPerson, Relationship, EmergencyNo, AppPassword, Gender, BirthDate) " +
                                    "VALUES (@FirstName, @LastName, @Username, @Password, @Role, @Specialty, @PhoneNumber, @EmailAddress, @MedicalLicenseNumber, @YearsofExperience, @BoardCertified, @HomeAddress, @MedicalSchool, @SocialMedia, @imgData, @ContactPerson, @Relationship, @EmergencyNo,@AppPassword,@Gender,@BirthDate)";
                     OleDbCommand cmd = new OleDbCommand(query, con);
@@ -331,6 +357,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             datetime_birthdate.Format = DateTimePickerFormat.Custom;
             datetime_birthdate.CustomFormat = "yyyy-MM-dd"; // Date + Time (12-hour format)
             datetime_birthdate.ShowUpDown = true; // Removes dropdown calendar
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -46,6 +46,7 @@
             btn_refreshDoct.TabIndex = 21;
             btn_refreshDoct.Text = "REFRESH";
             btn_refreshDoct.UseVisualStyleBackColor = false;
+            btn_refreshDoct.Click += btn_refreshDoct_Click;
             // 
             // lbl_noAppointmentDoct
             // 

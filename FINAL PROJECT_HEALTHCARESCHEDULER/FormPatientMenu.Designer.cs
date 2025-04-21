@@ -44,23 +44,23 @@
             label3 = new Label();
             lbl_exitpatient = new Label();
             panelContainer = new Panel();
+            picture_messagedoc = new PictureBox();
             picture_editprofile = new PictureBox();
             pictureBox2 = new PictureBox();
             redDot = new PictureBox();
             picture_clear = new PictureBox();
             picNotificationBell = new PictureBox();
-            picture_messagedoc = new PictureBox();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_homepatient).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             panelContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picture_editprofile).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)redDot).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picture_clear).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationBell).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -259,6 +259,17 @@
             panelContainer.Size = new Size(855, 628);
             panelContainer.TabIndex = 4;
             // 
+            // picture_messagedoc
+            // 
+            picture_messagedoc.BackgroundImage = Properties.Resources._4202011_email_gmail_mail_logo_social_icon;
+            picture_messagedoc.BackgroundImageLayout = ImageLayout.Stretch;
+            picture_messagedoc.Location = new Point(633, 13);
+            picture_messagedoc.Name = "picture_messagedoc";
+            picture_messagedoc.Size = new Size(39, 36);
+            picture_messagedoc.TabIndex = 16;
+            picture_messagedoc.TabStop = false;
+            picture_messagedoc.Click += picture_messagedoc_Click;
+            // 
             // picture_editprofile
             // 
             picture_editprofile.BackgroundImage = Properties.Resources.pen;
@@ -272,7 +283,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackgroundImage = Properties.Resources.welcome;
+            pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox2.Location = new Point(169, 101);
             pictureBox2.Name = "pictureBox2";
@@ -313,17 +324,6 @@
             picNotificationBell.TabStop = false;
             picNotificationBell.Click += picNotificationBell_Click;
             // 
-            // picture_messagedoc
-            // 
-            picture_messagedoc.BackgroundImage = Properties.Resources._4202011_email_gmail_mail_logo_social_icon;
-            picture_messagedoc.BackgroundImageLayout = ImageLayout.Stretch;
-            picture_messagedoc.Location = new Point(633, 13);
-            picture_messagedoc.Name = "picture_messagedoc";
-            picture_messagedoc.Size = new Size(39, 36);
-            picture_messagedoc.TabIndex = 16;
-            picture_messagedoc.TabStop = false;
-            picture_messagedoc.Click += picture_messagedoc_Click;
-            // 
             // FormPatientMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -343,12 +343,12 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panelContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).EndInit();
             ((System.ComponentModel.ISupportInitialize)picture_editprofile).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)redDot).EndInit();
             ((System.ComponentModel.ISupportInitialize)picture_clear).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotificationBell).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picture_messagedoc).EndInit();
             ResumeLayout(false);
         }
 

@@ -78,10 +78,12 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         MessageBox.Show("Please select a specialization and a doctor.");
                         return;
                     }
+                    DateTime selectedDateTime = datetime_selectapp.Value;
+                    DateTime now = DateTime.Now;
 
-                    if (datetime_selectapp.Value <= DateTime.Now)
+                    if (selectedDateTime < now.AddHours(3))
                     {
-                        MessageBox.Show("Please select a future date and time for the appointment.");
+                        MessageBox.Show("Please select a time at least 3 hours from now, even for today.");
                         return;
                     }
                     if (!RBTN_facetoface.Checked && !RBTN_Online.Checked)

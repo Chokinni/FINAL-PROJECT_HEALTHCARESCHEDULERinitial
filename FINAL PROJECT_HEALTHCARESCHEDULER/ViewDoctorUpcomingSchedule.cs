@@ -14,7 +14,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 {
     public partial class ViewDoctorUpcomingSchedule : BaseClass
     {
-        
+
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private readonly string soundFilePath = @"C:\Users\Lenovo - i5 13th Gen\Downloads\iphone.mp3";
@@ -23,6 +23,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             InitializeComponent();
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
+            btn_refreshDoct.Visible = false;
         }
 
         private void btn_loadschedupcoming_Click(object sender, EventArgs e)
@@ -155,6 +156,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
 
 
+
+        }
+
+        private void btn_refreshDoct_Click(object sender, EventArgs e)
+        {
 
         }
     }

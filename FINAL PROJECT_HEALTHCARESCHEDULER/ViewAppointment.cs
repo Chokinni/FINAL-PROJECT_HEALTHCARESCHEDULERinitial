@@ -19,7 +19,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             InitializeComponent();
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
-            btn_searchDoctor.Visible = false;   
+            btn_searchDoctor.Visible = false;
         }
 
         private DataTable originalData;
@@ -138,7 +138,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         private void btn_searchDoctor_Click(object sender, EventArgs e)
         {
             SearchByDoctorName();
-            
+
         }
 
         private void SearchByDoctorName()
@@ -177,6 +177,31 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             if (filteredData.Rows.Count == 0)
             {
                 MessageBox.Show("No appointments found with this doctor.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void strip_viewdocprofile_Opening(object sender, CancelEventArgs e)
+        {
+            if (table_ViewPatientAppointment.SelectedRows.Count > 0)
+            {
+                string fullName = table_ViewPatientAppointment.SelectedRows[0].Cells["Doctor"].Value.ToString();
+
+                // NEW: Better name handling
+                string[] nameParts = fullName.Trim().Split(new[] { ' ' }, 2); // Split into max 2 parts
+
+                string firstName = nameParts[0];
+                string lastName = nameParts.Length > 1 ? nameParts[1] : ""; // Handle single-word names
+
+                // DEBUG: Show what we're searching for
+                MessageBox.Show($"Searching for:\nFirst Name: '{firstName}'\nLast Name: '{lastName}'",
+                              "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DoctorProfile profileFormdoc = new DoctorProfile(firstName, lastName);
+                profileFormdoc.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a row first.");
             }
         }
     }

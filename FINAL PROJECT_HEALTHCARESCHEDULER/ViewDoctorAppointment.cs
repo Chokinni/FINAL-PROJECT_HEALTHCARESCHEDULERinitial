@@ -63,6 +63,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
                         // Bind to DataGridView
                         table_ViewDoctorAppointment.DataSource = dt;
+                        lblAppointmentCount.Text = $"Total Appointments: {dt.Rows.Count}";
 
                         if (dt.Rows.Count > 0)
                         {

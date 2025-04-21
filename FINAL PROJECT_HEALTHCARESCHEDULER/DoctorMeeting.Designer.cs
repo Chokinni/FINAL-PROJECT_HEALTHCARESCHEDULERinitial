@@ -52,12 +52,12 @@
             // 
             // btn_startmeeting
             // 
-            btn_startmeeting.BackColor = Color.LimeGreen;
+            btn_startmeeting.BackColor = Color.SkyBlue;
             btn_startmeeting.FlatAppearance.BorderSize = 0;
             btn_startmeeting.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_startmeeting.Location = new Point(277, 550);
+            btn_startmeeting.Location = new Point(277, 543);
             btn_startmeeting.Name = "btn_startmeeting";
-            btn_startmeeting.Size = new Size(179, 29);
+            btn_startmeeting.Size = new Size(195, 44);
             btn_startmeeting.TabIndex = 21;
             btn_startmeeting.Text = "START MEETING";
             btn_startmeeting.UseVisualStyleBackColor = false;
@@ -74,12 +74,12 @@
             // 
             // btn_SCHEDULE
             // 
-            btn_SCHEDULE.BackColor = Color.LimeGreen;
+            btn_SCHEDULE.BackColor = Color.SkyBlue;
             btn_SCHEDULE.FlatAppearance.BorderSize = 0;
             btn_SCHEDULE.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_SCHEDULE.Location = new Point(35, 550);
+            btn_SCHEDULE.Location = new Point(48, 543);
             btn_SCHEDULE.Name = "btn_SCHEDULE";
-            btn_SCHEDULE.Size = new Size(196, 29);
+            btn_SCHEDULE.Size = new Size(197, 44);
             btn_SCHEDULE.TabIndex = 27;
             btn_SCHEDULE.Text = "SCHEDULE MEETING";
             btn_SCHEDULE.UseVisualStyleBackColor = false;
@@ -87,12 +87,12 @@
             // 
             // btn_loadschedmeet
             // 
-            btn_loadschedmeet.BackColor = Color.LimeGreen;
+            btn_loadschedmeet.BackColor = Color.SkyBlue;
             btn_loadschedmeet.FlatAppearance.BorderSize = 0;
             btn_loadschedmeet.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_loadschedmeet.Location = new Point(514, 550);
+            btn_loadschedmeet.Location = new Point(513, 543);
             btn_loadschedmeet.Name = "btn_loadschedmeet";
-            btn_loadschedmeet.Size = new Size(174, 29);
+            btn_loadschedmeet.Size = new Size(176, 44);
             btn_loadschedmeet.TabIndex = 28;
             btn_loadschedmeet.Text = "LOAD SCHEDULE";
             btn_loadschedmeet.UseVisualStyleBackColor = false;
@@ -103,7 +103,7 @@
             btn_check.BackColor = Color.Transparent;
             btn_check.BackgroundImage = (Image)resources.GetObject("btn_check.BackgroundImage");
             btn_check.BackgroundImageLayout = ImageLayout.Stretch;
-            btn_check.Location = new Point(721, 537);
+            btn_check.Location = new Point(715, 543);
             btn_check.Name = "btn_check";
             btn_check.Size = new Size(49, 42);
             btn_check.TabIndex = 29;

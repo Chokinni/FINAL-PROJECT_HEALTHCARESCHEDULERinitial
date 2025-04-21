@@ -311,12 +311,13 @@
             plotView1.Location = new Point(21, 158);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
-            plotView1.Size = new Size(809, 310);
+            plotView1.Size = new Size(809, 334);
             plotView1.TabIndex = 11;
             plotView1.Text = "plotView1";
             plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
             plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
             plotView1.ZoomVerticalCursor = Cursors.SizeNS;
+            plotView1.Click += plotView1_Click;
             // 
             // btnLoadChart
             // 

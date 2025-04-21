@@ -36,6 +36,7 @@
             viewPatientProfileToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             txt_searchPatient = new TextBox();
+            lblAppointmentCount = new Label();
             ((System.ComponentModel.ISupportInitialize)table_ViewDoctorAppointment).BeginInit();
             strip_viewappointment.SuspendLayout();
             SuspendLayout();
@@ -105,11 +106,22 @@
             txt_searchPatient.TabIndex = 28;
             txt_searchPatient.TextChanged += txt_searchPatient_TextChanged;
             // 
+            // lblAppointmentCount
+            // 
+            lblAppointmentCount.AutoSize = true;
+            lblAppointmentCount.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAppointmentCount.Location = new Point(462, 44);
+            lblAppointmentCount.Name = "lblAppointmentCount";
+            lblAppointmentCount.Size = new Size(177, 20);
+            lblAppointmentCount.TabIndex = 30;
+            lblAppointmentCount.Text = "Total Appointments:";
+            // 
             // ViewDoctorAppointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ContextMenuStrip = strip_viewappointment;
+            Controls.Add(lblAppointmentCount);
             Controls.Add(label1);
             Controls.Add(txt_searchPatient);
             Controls.Add(btn_loadschedforpatients);
@@ -133,5 +145,6 @@
         private ToolStripMenuItem viewPatientProfileToolStripMenuItem;
         private Label label1;
         private TextBox txt_searchPatient;
+        private Label lblAppointmentCount;
     }
 }

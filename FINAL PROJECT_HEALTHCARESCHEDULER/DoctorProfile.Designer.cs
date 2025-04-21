@@ -34,12 +34,12 @@
             lbl_email = new Label();
             panel1 = new Panel();
             label1 = new Label();
-            lbl_socials = new Label();
             lbl_medicalschool = new Label();
-            lbl_homeadd = new Label();
             lbl_certified = new Label();
             lbl_experience = new Label();
             lbl_medicallicense = new Label();
+            lbl_socials = new Label();
+            lbl_homeadd = new Label();
             lbl_exitdoctor = new Label();
             lbl_specialty = new Label();
             lbl_info = new Label();
@@ -116,18 +116,6 @@
             label1.TabIndex = 19;
             label1.Text = "PROFESSIONAL CREDENTIALS";
             // 
-            // lbl_socials
-            // 
-            lbl_socials.AutoSize = true;
-            lbl_socials.BackColor = Color.Transparent;
-            lbl_socials.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
-            lbl_socials.ForeColor = Color.Navy;
-            lbl_socials.Location = new Point(569, 137);
-            lbl_socials.Name = "lbl_socials";
-            lbl_socials.Size = new Size(128, 20);
-            lbl_socials.TabIndex = 10;
-            lbl_socials.Text = "Social Media:";
-            // 
             // lbl_medicalschool
             // 
             lbl_medicalschool.AutoSize = true;
@@ -140,25 +128,13 @@
             lbl_medicalschool.TabIndex = 9;
             lbl_medicalschool.Text = "Medical School:";
             // 
-            // lbl_homeadd
-            // 
-            lbl_homeadd.AutoSize = true;
-            lbl_homeadd.BackColor = Color.Transparent;
-            lbl_homeadd.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
-            lbl_homeadd.ForeColor = Color.Navy;
-            lbl_homeadd.Location = new Point(569, 80);
-            lbl_homeadd.Name = "lbl_homeadd";
-            lbl_homeadd.Size = new Size(142, 20);
-            lbl_homeadd.TabIndex = 8;
-            lbl_homeadd.Text = "Home Address:";
-            // 
             // lbl_certified
             // 
             lbl_certified.AutoSize = true;
             lbl_certified.BackColor = Color.Transparent;
             lbl_certified.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
             lbl_certified.ForeColor = Color.Navy;
-            lbl_certified.Location = new Point(36, 209);
+            lbl_certified.Location = new Point(532, 142);
             lbl_certified.Name = "lbl_certified";
             lbl_certified.Size = new Size(150, 20);
             lbl_certified.TabIndex = 7;
@@ -187,6 +163,30 @@
             lbl_medicallicense.Size = new Size(233, 20);
             lbl_medicallicense.TabIndex = 5;
             lbl_medicallicense.Text = "Medical License Number:";
+            // 
+            // lbl_socials
+            // 
+            lbl_socials.AutoSize = true;
+            lbl_socials.BackColor = Color.Transparent;
+            lbl_socials.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
+            lbl_socials.ForeColor = Color.Yellow;
+            lbl_socials.Location = new Point(594, 132);
+            lbl_socials.Name = "lbl_socials";
+            lbl_socials.Size = new Size(128, 20);
+            lbl_socials.TabIndex = 10;
+            lbl_socials.Text = "Social Media:";
+            // 
+            // lbl_homeadd
+            // 
+            lbl_homeadd.AutoSize = true;
+            lbl_homeadd.BackColor = Color.Transparent;
+            lbl_homeadd.Font = new Font("Bookman Old Style", 10.2F, FontStyle.Bold);
+            lbl_homeadd.ForeColor = Color.Yellow;
+            lbl_homeadd.Location = new Point(594, 75);
+            lbl_homeadd.Name = "lbl_homeadd";
+            lbl_homeadd.Size = new Size(142, 20);
+            lbl_homeadd.TabIndex = 8;
+            lbl_homeadd.Text = "Home Address:";
             // 
             // lbl_exitdoctor
             // 

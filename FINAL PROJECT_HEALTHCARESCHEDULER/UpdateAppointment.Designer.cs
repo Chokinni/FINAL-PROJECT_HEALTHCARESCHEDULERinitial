@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             table_UpdateAppointment = new DataGridView();
             lbl_datetime = new Label();
             datetime_sched = new DateTimePicker();
@@ -35,6 +36,7 @@
             btn_LoadSchedule = new Button();
             rxt_searchDoctor = new TextBox();
             label1 = new Label();
+            strip_viewdocprof = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)table_UpdateAppointment).BeginInit();
             SuspendLayout();
             // 
@@ -107,10 +109,18 @@
             label1.TabIndex = 23;
             label1.Text = "Search Doctor:";
             // 
+            // strip_viewdocprof
+            // 
+            strip_viewdocprof.ImageScalingSize = new Size(20, 20);
+            strip_viewdocprof.Name = "strip_viewdocprof";
+            strip_viewdocprof.Size = new Size(61, 4);
+            strip_viewdocprof.Opening += strip_viewdocprof_Opening;
+            // 
             // UpdateAppointment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ContextMenuStrip = strip_viewdocprof;
             Controls.Add(label1);
             Controls.Add(rxt_searchDoctor);
             Controls.Add(btn_LoadSchedule);
@@ -135,5 +145,6 @@
         private Button btn_LoadSchedule;
         private TextBox rxt_searchDoctor;
         private Label label1;
+        private ContextMenuStrip strip_viewdocprof;
     }
 }

@@ -176,7 +176,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 {
                     con.Open();
 
-                    // First, get the appointment type
+                    // Step 1: Get appointment type
                     string appointmentQuery = "SELECT AppointmentType FROM Appointments WHERE AppointmentID = @AppointmentID";
                     string appointmentType = "";
 
@@ -194,7 +194,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         appointmentType = result.ToString();
                     }
 
-                    // Get user ID
+                    // Step 2: Get user ID
                     string userQuery = "SELECT ID FROM USERS WHERE [FirstName] = @FirstName AND [LastName] = @LastName";
                     using (OleDbCommand userCmd = new OleDbCommand(userQuery, con))
                     {
@@ -213,25 +213,54 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         string meetLink = appointmentType == "Online" ? "On the Making" : "N/A";
                         string doctorName = loggedInFirstName + " " + loggedInLastName;
 
-                        string insertQuery = @"INSERT INTO Meeting ([MeetingStatus], [UserID], [MeetingLink], [DoctorName], [AppointmentID])
-                              VALUES (@MeetingStatus, @UserID, @MeetingLink, @DoctorName, @AppointmentID)";
-
-                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, con))
+                        // Step 3: Check if meeting already exists
+                        string checkMeetingQuery = "SELECT COUNT(*) FROM Meeting WHERE AppointmentID = @AppointmentID";
+                        using (OleDbCommand checkCmd = new OleDbCommand(checkMeetingQuery, con))
                         {
-                            insertCmd.Parameters.AddWithValue("@MeetingStatus", meetStatus);
-                            insertCmd.Parameters.AddWithValue("@UserID", userID);
-                            insertCmd.Parameters.AddWithValue("@MeetingLink", meetLink);
-                            insertCmd.Parameters.AddWithValue("@DoctorName", doctorName);
-                            insertCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                            checkCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                            int meetingCount = Convert.ToInt32(checkCmd.ExecuteScalar());
 
-                            int rowsAffected = insertCmd.ExecuteNonQuery();
-                            if (rowsAffected > 0)
+                            if (meetingCount > 0)
                             {
-                                MessageBox.Show("Meeting successfully confirmed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                // ✅ Meeting already exists — perform an UPDATE
+                                string updateMeetingQuery = @"
+                            UPDATE Meeting 
+                            SET MeetingStatus = @MeetingStatus, 
+                                MeetingLink = @MeetingLink, 
+                                DoctorName = @DoctorName
+                            WHERE AppointmentID = @AppointmentID";
+
+                                using (OleDbCommand updateCmd = new OleDbCommand(updateMeetingQuery, con))
+                                {
+                                    updateCmd.Parameters.AddWithValue("@MeetingStatus", meetStatus);
+                                    updateCmd.Parameters.AddWithValue("@MeetingLink", meetLink);
+                                    updateCmd.Parameters.AddWithValue("@DoctorName", doctorName);
+                                    updateCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+
+                                    updateCmd.ExecuteNonQuery();
+                                }
+
+                                MessageBox.Show("Meeting details updated.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
                             {
-                                MessageBox.Show("Meeting confirmation failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                // 🆕 No meeting yet — insert a new row
+                                string insertQuery = @"
+                            INSERT INTO Meeting ([MeetingStatus], [UserID], [MeetingLink], [DoctorName], [AppointmentID])
+                            VALUES (@MeetingStatus, @UserID, @MeetingLink, @DoctorName, @AppointmentID)";
+
+                                using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, con))
+                                {
+                                    insertCmd.Parameters.AddWithValue("@MeetingStatus", meetStatus);
+                                    insertCmd.Parameters.AddWithValue("@UserID", userID);
+                                    insertCmd.Parameters.AddWithValue("@MeetingLink", meetLink);
+                                    insertCmd.Parameters.AddWithValue("@DoctorName", doctorName);
+                                    insertCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+
+                                    insertCmd.ExecuteNonQuery();
+                                }
+
+                                MessageBox.Show("Meeting successfully confirmed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }

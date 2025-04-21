@@ -241,11 +241,12 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(27, 385);
+            label4.Location = new Point(39, 399);
             label4.Name = "label4";
-            label4.Size = new Size(332, 20);
+            label4.Size = new Size(299, 20);
             label4.TabIndex = 3;
-            label4.Text = "HEALTHCARE SCHEDULER SYSTEM";
+            label4.Text = "HOSPITAL SCHEDULER SYSTEM";
+            label4.Click += label4_Click;
             // 
             // lbl_welcomeregister
             // 

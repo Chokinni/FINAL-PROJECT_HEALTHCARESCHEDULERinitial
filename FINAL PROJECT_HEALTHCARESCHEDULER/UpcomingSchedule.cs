@@ -24,6 +24,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             InitializeComponent();
             loggedInFirstName = firstName;
             loggedInLastName = lastName;
+            btn_refresh.Visible = false;
         }
 
         private void btn_loadUpcoming_Click(object sender, EventArgs e)

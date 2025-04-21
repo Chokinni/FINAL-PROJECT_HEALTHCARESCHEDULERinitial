@@ -384,5 +384,10 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             EmailtoPatient emailForm = new EmailtoPatient(loggedInUsername, loggedInLastName);
             emailForm.ShowDialog();
         }
+
+        private void plotView1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
