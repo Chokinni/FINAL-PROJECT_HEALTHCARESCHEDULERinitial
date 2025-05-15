@@ -66,6 +66,14 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            // 🧹 Step 5: Delete the Meeting associated with the appointment
+                            string deleteMeetingQuery = "DELETE FROM Meeting WHERE AppointmentID = @AppointmentID";
+                            using (OleDbCommand deleteCmd = new OleDbCommand(deleteMeetingQuery, con))
+                            {
+                                deleteCmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                                int meetingDeleted = deleteCmd.ExecuteNonQuery();
+                                Console.WriteLine($"{meetingDeleted} meeting(s) deleted."); // for debugging
+                            }
                             // Send email notification to doctor
                             if (!string.IsNullOrEmpty(doctorEmail))
                             {
@@ -97,7 +105,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
 
         }
 
-        // Add these helper methods to your class
+
+        
         private string GetDoctorEmail(string doctorName, OleDbConnection con)
         {
             try
@@ -214,7 +223,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             catch (Exception ex)
             {
                 Console.WriteLine("Error sending cancellation email: " + ex.Message);
-                // Consider logging this error for administrative review
+                
             }
         }
 

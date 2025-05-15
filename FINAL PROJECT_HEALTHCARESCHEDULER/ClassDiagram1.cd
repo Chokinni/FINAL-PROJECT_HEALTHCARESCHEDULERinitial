@@ -27,13 +27,6 @@
       <FileName>CancelAppointment.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Cancellation" Collapsed="true">
-    <Position X="22.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Cancellation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.CancelPatientAppointment">
     <Position X="1.75" Y="2" Width="1.5" />
     <TypeIdentifier>
@@ -49,7 +42,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Form1" Collapsed="true">
-    <Position X="24.25" Y="0.5" Width="1.5" />
+    <Position X="22.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAABAAAACQgAACAABAIAAAAAQAAQBAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
@@ -65,11 +58,12 @@
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.FormPatientMenu" Collapsed="true">
     <Position X="24" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BIAAAIACAGAAAJQAEACQEAACAAIAAgAAAIgAAQBAAAA=</HashCode>
+      <HashCode>hIIYAI0DCGAIBJRAUAOREIACEAIABgDAYIgAAQBAEAA=</HashCode>
+      <FileName>FormPatientMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Form2" Collapsed="true">
-    <Position X="26" Y="2.25" Width="1.5" />
+    <Position X="26.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQBYAYUAAiAEABAAAACQAAACAAAAIAAAEGAoAQAEAAE=</HashCode>
       <FileName>LOGINFORM.cs</FileName>
@@ -83,7 +77,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.Program" Collapsed="true">
-    <Position X="26.25" Y="0.5" Width="1.5" />
+    <Position X="25.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -127,13 +121,14 @@
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ViewDoctorAppointment" Collapsed="true">
     <Position X="16" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQEEAAAAACAAABAAAQCAAACSBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQEFAAAAACAAABAAAUDAAACSBAAEAAAAAAAgAAAACAA=</HashCode>
+      <FileName>ViewDoctorAppointment.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FINAL_PROJECT_HEALTHCARESCHEDULER.ViewDoctorUpcomingSchedule">
     <Position X="19.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAACCAAAgCABAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAQCAAAAAAICKAAAgCABAAAAAEAAAAgAAAAAE=</HashCode>
       <FileName>ViewDoctorUpcomingSchedule.cs</FileName>
     </TypeIdentifier>
   </Class>

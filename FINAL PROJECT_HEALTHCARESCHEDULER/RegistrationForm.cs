@@ -90,7 +90,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 return;
             }
 
-            // ✅ AppPassword format and length validation
+            // AppPassword format and length validation
             string trimmedAppPass = apppassword.Replace(" ", ""); // Remove spaces temporarily
 
             if (trimmedAppPass.Length != 16 || !Regex.IsMatch(apppassword, @"^(\w{4}\s){3}\w{4}$"))

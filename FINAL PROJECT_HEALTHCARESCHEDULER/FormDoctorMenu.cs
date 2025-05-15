@@ -25,13 +25,12 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         public FormDoctorMenu(string firstName, string lastName)
         {
             InitializeComponent();
-            loggedInUsername = firstName;// Store username in a variable
-            loggedInLastName = lastName;// Store username in a variable
-                                        //lblWelcome.AutoSize = false;
-                                        // lblWelcome.MaximumSize = new Size(300, 0); // Width limit, height auto-adjusts
-                                        // lblWelcome.AutoEllipsis = false;
+            loggedInUsername = firstName;
+            loggedInLastName = lastName;
+                                        
+                                        
 
-            //lblWelcome.Text = "Welcome, Dr. " + loggedInUsername; // Example usage
+            
 
             loggedInUsername = firstName;// Store username in a variable
             loggedInLastName = lastName;// Store username in a variable

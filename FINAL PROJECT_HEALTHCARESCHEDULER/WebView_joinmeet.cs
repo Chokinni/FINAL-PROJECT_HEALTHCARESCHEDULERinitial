@@ -39,7 +39,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 // Initialize the WebView2 environment
                 await webview_meetingol.EnsureCoreWebView2Async(null);
 
-                // Configure WebView2 settings
+               
                 webview_meetingol.CoreWebView2.Settings.IsZoomControlEnabled = true;
                 webview_meetingol.CoreWebView2.Settings.AreDefaultContextMenusEnabled = true;
                 webview_meetingol.CoreWebView2.Settings.IsStatusBarEnabled = true;
@@ -51,10 +51,10 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                 // Navigate to the meeting link with additional parameters
                 if (!string.IsNullOrEmpty(meetLink))
                 {
-                    // Add parameters to auto-join and set display name
+                   
                     string enhancedLink = meetLink;
 
-                    // If the link doesn't already have parameters, add a question mark
+                  
                     if (!enhancedLink.Contains("?"))
                         enhancedLink += "?";
                     else

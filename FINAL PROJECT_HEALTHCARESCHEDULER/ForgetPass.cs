@@ -17,7 +17,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
     {
         private string verificationCode;
         private string userEmail;
-        private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Lenovo - i5 13th Gen\Documents\Healthcarescheduler.accdb;"; // Using your BaseClass connection string
+        private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Lenovo - i5 13th Gen\Documents\Healthcarescheduler.accdb;"; 
         public ForgetPass()
         {
             InitializeComponent();

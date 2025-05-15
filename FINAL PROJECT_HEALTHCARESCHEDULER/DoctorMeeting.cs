@@ -104,10 +104,11 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
             string doctor = row.Cells["Doctor"].Value.ToString();
             string patient = row.Cells["Patient"].Value.ToString();
             DateTime appointmentDate = Convert.ToDateTime(row.Cells["AppointmentDate"].Value);
+           
 
             try
             {
-                // First get doctor's email and app password from database
+                
                 (string doctorEmail, string doctorAppPassword) = GetDoctorEmailAndPassword(doctor);
 
                 if (string.IsNullOrEmpty(doctorEmail) || string.IsNullOrEmpty(doctorAppPassword))
@@ -115,8 +116,8 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
                     MessageBox.Show("Could not retrieve doctor's email credentials from database.");
                     return;
                 }
-                // Load Google credentials - UPDATED PATH HERE
-                using (var stream = new FileStream(@"C:\Ccode\credentials.json", FileMode.Open, FileAccess.Read))
+                
+                using (var stream = new FileStream(@"C:\Ccode\credentials1.json", FileMode.Open, FileAccess.Read))
                 {
                     var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.FromStream(stream).Secrets,

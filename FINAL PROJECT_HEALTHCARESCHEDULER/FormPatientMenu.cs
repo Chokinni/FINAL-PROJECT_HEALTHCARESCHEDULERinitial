@@ -24,18 +24,18 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         public FormPatientMenu(string firstName, string lastName)
         {
             InitializeComponent();
-            loggedInUsername = firstName;// Store username in a variable
-            loggedInLastName = lastName;// Store username in a variable
+            loggedInUsername = firstName;
+            loggedInLastName = lastName;
             lblWelcome.Text = "Welcome, Patient " + loggedInUsername;
             lblWelcome.AutoSize = false;
-            lblWelcome.MaximumSize = new Size(300, 0); // limit width, height can grow
+            lblWelcome.MaximumSize = new Size(300, 0); 
             lblWelcome.AutoEllipsis = false;
-            lblWelcome.UseCompatibleTextRendering = true; // Fix for rendering inconsistencies
+            lblWelcome.UseCompatibleTextRendering = true; 
             this.redDot = new System.Windows.Forms.PictureBox();
-            this.redDot.Size = new System.Drawing.Size(10, 10); // Small red dot
-            this.redDot.BackColor = System.Drawing.Color.Red; // Color red
-            this.redDot.Location = new System.Drawing.Point(30, 10); // Adjust position over the bell
-            this.redDot.Visible = false; // Initially hidden
+            this.redDot.Size = new System.Drawing.Size(10, 10); 
+            this.redDot.BackColor = System.Drawing.Color.Red; 
+            this.redDot.Location = new System.Drawing.Point(30, 10); 
+            this.redDot.Visible = false; 
 
             // Add to the form
             this.Controls.Add(this.redDot);
@@ -60,12 +60,7 @@ namespace FINAL_PROJECT_HEALTHCARESCHEDULER
         }
         private void FormPatientMenu_Load(object sender, EventArgs e)
         {
-            //var timer = new System.Windows.Forms.Timer();
-            //timer.Interval = 30000;
-            // timer.Tick += (s, e) => CheckForNotifications();
-            //timer.Start();
-            //lblNotificationCount.Visible = true;
-            //lblNotificationCount.AutoSize = true;
+           
 
             var timer = new System.Windows.Forms.Timer();
             timer.Interval = 30000; // 30 seconds
